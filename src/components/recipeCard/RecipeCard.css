@@ -1,0 +1,64 @@
+.result-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px black solid;
+  padding: 0 0 1rem 0;
+  margin: 0 0 1rem 0;
+}
+
+.result-card-title {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 13px;
+  max-width: 140px;
+}
+
+.result-card-text {
+  font-size: 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* align-items: flex-start; */
+  order: 1;
+}
+
+.result-card-calories-favourite {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  order: 2;
+  font-size: 12px;
+}
+
+.result-card-favourite {
+  order: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: black;
+  text-decoration: none;
+}
+
+.result-card-calories {
+  order: 1;
+}
+
+.result-card-image {
+  height: 130px;
+  order: 0;
+  border-radius: 0.5rem;
+}
+
+@keyframes fillStar {
+  0% {
+    color: lightgrey;
+  }
+  100% {
+    color: #f8e21f;
+  }
+}
