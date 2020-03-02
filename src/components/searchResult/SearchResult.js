@@ -1,31 +1,22 @@
 import React, { useEffect, useState, Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import axios from "axios";
 import RecipeCard from "../recipeCard/RecipeCard";
 import FavouritesCard from "../favouritesCard/FavouritesCard";
-import Nav from "../nav/Nav";
-import axios from "axios";
 import Landing from "../landing/Landing";
+import Nav from "../nav/Nav";
+import Egg from "../icons/egg/Egg";
 import "./SearchResult.css";
 
 const SearchResult = () => {
-  const APP_ID = "de983b0c";
-  const APP_KEY = "cd0a09c9ca596e51da6d4be387d0df0f";
+  // const APP_ID = "de983b0c";
+  const APP_KEY = "3bb40b484ae042bdbb10a1b038f5550a";
 
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [favourites, setFavourites] = useState([]);
-
-  const getRecipesFunction = async query => {
-    setLoading(true);
-    setQuery(query);
-    const response = await axios.get(
-      `https://cors-anywhere.herokuapp.com/https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-    );
-    setRecipes(response.data.hits);
-    console.log(response.data.hits);
-    console.log(response.data.hits[0].recipe.healthLabels[0]);
-    setLoading(false);
-  };
+  const [steps, setSteps] = useState([]);
 
   const getFavouritesFunction = title => {
     const newFavourites = [...favourites];
@@ -41,15 +32,20 @@ const SearchResult = () => {
     console.log(favourites);
   };
 
+  const getQuery = query => {
+    setQuery(query);
+  };
+
   let renderRecipes = null;
   renderRecipes = recipes.map(recipe => (
     <RecipeCard
       getFavourites={getFavouritesFunction}
-      key={recipe.recipe.label}
-      title={recipe.recipe.label}
-      calories={recipe.recipe.calories}
-      image={recipe.recipe.image}
-      labels={recipe.recipe.healthLabels}
+      key={recipe.id}
+      id={recipe.id}
+      title={recipe.title}
+      image={recipe.image}
+      time={recipe.readyInMinutes}
+      servings={recipe.servings}
     />
   ));
 
@@ -60,7 +56,11 @@ const SearchResult = () => {
 
   return (
     <Fragment>
-      <Nav getRecipes={getRecipesFunction} />
+      <Nav
+        setLoading={setLoading}
+        setRecipes={setRecipes}
+        getQuery={getQuery}
+      />
       {recipes.length > 0 ? (
         <div className="results-container">
           <div className="results-cards">
@@ -70,12 +70,13 @@ const SearchResult = () => {
           <div className="results-favourites-wrapper">
             <div className="results-favourites">
               <p className="favourites-title">Your Favourites</p>
+
               {renderFavourites}
             </div>
           </div>
         </div>
       ) : loading ? (
-        <p>Loading...</p>
+        <Egg />
       ) : (
         <Landing />
       )}

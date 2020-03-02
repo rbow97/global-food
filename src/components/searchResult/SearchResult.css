@@ -1,5 +1,6 @@
 .results-container {
   margin: 2rem 3rem 0 3rem;
+  min-height: 100vh;
   padding: 3rem;
   background-color: white;
   border-radius: 0.5rem 0.5rem 0 0;

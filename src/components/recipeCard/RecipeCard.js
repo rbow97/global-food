@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./RecipeCard.css";
+import axios from "axios";
 import Star from "../star/Star";
+import Clock from "../icons/clock/Clock";
+import Plate from "../icons/plate/Plate";
+import RecipePage from "../recipePage/RecipePage";
+import { Link } from "react-router-dom";
 
-const RecipeCard = ({ title, calories, image, labels, getFavourites }) => {
-  let renderLabels = null;
-  renderLabels = labels.map((label, index) => {
-    if (index > 2) {
-      return;
-    } else {
-      return <div key={label}>- {label}</div>;
-    }
-  });
+const RecipeCard = ({ id, title, image, time, servings, getFavourites }) => {
+  // const APP_KEY = "3bb40b484ae042bdbb10a1b038f5550a";
+  const [info, setInfo] = useState([]);
+
+  // const getInfoFunction = async id => {
+  //   const response = await axios.get(
+  //     `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APP_KEY}`
+  //   );
+  //   setInfo(response);
+  //   console.log(response);
+  // };
+
+  // useEffect(() => {
+  //   getInfoFunction(id);
+  // }, []);
 
   const getTitleFunction = () => {
     getFavourites(title);
@@ -19,21 +30,34 @@ const RecipeCard = ({ title, calories, image, labels, getFavourites }) => {
   return (
     <div className="result-card">
       <div className="result-card-text">
-        <p className="result-card-title">{title}</p>
-        {renderLabels}
+        <Link to={`/recipes/${id}`}>
+          <p className="result-card-title">{title}</p>
+        </Link>
+        <div className="result-card-info">
+          <Plate />
+          <p>Serves: {servings}</p>
+        </div>
+        <div className="result-card-info">
+          <Clock /> Ready in {time} minutes
+        </div>
       </div>
-      <div className="result-card-calories-favourite">
-        <p className="result-card-calories">calories: {Math.round(calories)}</p>
+      <div className="result-card-favourite">
         <a
           href="#"
           className="result-card-favourite"
           onClick={getTitleFunction}
         >
           Favourite
-          <ion-icon name="star"></ion-icon>
+          <Star />
         </a>
       </div>
-      <img className="result-card-image" src={image} alt="" />
+      <Link to={`/recipes/${id}`}>
+        <img
+          className="result-card-image"
+          src={` https://spoonacular.com/recipeImages/${image}`}
+          alt={title}
+        />
+      </Link>
     </div>
   );
 };

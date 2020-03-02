@@ -1,13 +1,26 @@
 import "./Nav.css";
 import React, { useEffect, useState } from "react";
 import Logo from "../logo/Logo";
+import axios from "axios";
 
 const Nav = props => {
+  const APP_KEY = "3bb40b484ae042bdbb10a1b038f5550a";
   const [search, setSearch] = useState("");
+
+  const getRecipesFunction = async () => {
+    props.setLoading(true);
+    const response = await axios.get(
+      `https://api.spoonacular.com/recipes/search?query=${search}&number=1&apiKey=${APP_KEY}`
+    );
+    props.setRecipes(response.data.results);
+    console.log(response);
+    props.setLoading(false);
+  };
 
   const getSearchFunction = e => {
     e.preventDefault();
-    props.getRecipes(search);
+    getRecipesFunction();
+    props.getQuery(search);
   };
 
   return (

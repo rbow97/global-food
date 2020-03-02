@@ -1,0 +1,29 @@
+.egg-wrapper {
+  height: 100px;
+  width: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.egg-icon {
+  animation: spin 2s infinite linear;
+  height: 70px;
+  width: auto;
+  padding: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
