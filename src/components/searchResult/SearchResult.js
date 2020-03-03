@@ -10,13 +10,13 @@ import "./SearchResult.css";
 
 const SearchResult = () => {
   // const APP_ID = "de983b0c";
-  const APP_KEY = "3bb40b484ae042bdbb10a1b038f5550a";
+  const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
+  const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
 
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [favourites, setFavourites] = useState([]);
-  const [steps, setSteps] = useState([]);
 
   const getFavouritesFunction = title => {
     const newFavourites = [...favourites];
