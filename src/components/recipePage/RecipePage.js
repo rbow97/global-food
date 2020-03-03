@@ -6,6 +6,8 @@ import Star from "../star/Star";
 import Egg from "../icons/egg/Egg";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
+import Cook from "../icons/cook/Cook";
+import List from "../icons/list/List";
 
 const RecipePage = ({ match }) => {
   const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
@@ -15,10 +17,39 @@ const RecipePage = ({ match }) => {
   const [nutrition, setNutrition] = useState({});
   let [methodCheckListTotal, setMethodCheckListTotal] = useState(0);
   let [ingredientsCheckListTotal, setIngredientsCheckListTotal] = useState(0);
+  const [ingredientsLog, setIngredientsLog] = useState({});
+  const [methodLog, setMethodLog] = useState({});
+
+  // {recipeId: {
+  //   ingredients: {
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //   },
+  //   method: {
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+  //     uid: true
+
+  //   }
+  // }}
 
   useEffect(() => {
     getInfoFunction();
+    getLocalStorage();
   }, []);
+
+  const getLocalStorage = () => {
+    const localObject = JSON.parse(localStorage.getItem("recipeStatus"));
+    setMethodLog(localObject[match.params.id].method);
+    setIngredientsLog(localObject[match.params.id].ingredients);
+  };
 
   const getInfoFunction = async () => {
     const response = await axios.get(
@@ -52,52 +83,90 @@ const RecipePage = ({ match }) => {
     }
   };
 
+  const handleMethodLog = e => {
+    let map = { ...methodLog };
+    map[e.target.id] = e.target.checked;
+    setMethodLog(map);
+    updateLocalStorage(map, ingredientsLog);
+  };
+
+  const handleIngredientsLog = e => {
+    let map = { ...ingredientsLog };
+    map[e.target.id] = e.target.checked;
+    setIngredientsLog(map);
+    updateLocalStorage(methodLog, map);
+  };
+
+  const updateLocalStorage = (method, ingredients) => {
+    let localObject = {};
+
+    localObject[match.params.id] = {
+      method: method,
+      ingredients: ingredients
+    };
+
+    localStorage.setItem("recipeStatus", JSON.stringify(localObject));
+  };
+
   let recipeInfo = null;
   let steps;
   let ingredients;
   let vegetarian;
   if (info.data) {
-    // if (!info.data.vegetarian) {
-    //   console.log("veggie test");
-    //   vegetarian = <p className>Vegetarian: no</p>;
-    // } else {
-    //   vegetarian = <p>Vegetarian: yes</p>;
-    // }
+    if (!info.data.vegetarian) {
+      vegetarian = <p className="recipe-page-vegetarian">Vegetarian: no</p>;
+    } else {
+      vegetarian = <p>Vegetarian: yes</p>;
+    }
     if (info.data.analyzedInstructions[0].steps) {
-      steps = info.data.analyzedInstructions[0].steps.map(step => (
-        <div key={step.number} className="method-list-items">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              onClick={e => {
-                handleMethodCheckboxCount(e);
-              }}
-            />
-            <div className="checkbox-custom"></div>
-            <p className="method-list-item" key={step.number}>
-              <b>{step.number}</b> - {step.step}
-            </p>
-          </label>
-        </div>
-      ));
+      steps = info.data.analyzedInstructions[0].steps.map(step => {
+        const checked = methodLog[step.number];
+
+        return (
+          <div key={step.number} className="method-list-items">
+            <label className="checkbox-label">
+              <input
+                defaultChecked={checked}
+                id={step.number}
+                type="checkbox"
+                onClick={e => {
+                  handleMethodCheckboxCount(e);
+                  handleMethodLog(e);
+                }}
+              />
+              <div className="checkbox-custom"></div>
+              <p className="method-list-item" key={step.number}>
+                <b>{step.number}</b> - {step.step}
+              </p>
+            </label>
+          </div>
+        );
+      });
     }
     if (info.data.extendedIngredients) {
-      ingredients = info.data.extendedIngredients.map(ingredients => (
-        <div key={ingredients.original} className="ingredients-list-items">
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              onClick={e => {
-                handleIngredientsCheckboxCount(e);
-              }}
-            />
-            <div className="checkbox-custom"></div>
-            <p className="ingredients-list-item" key={ingredients.original}>
-              {ingredients.original}
-            </p>
-          </label>
-        </div>
-      ));
+      ingredients = info.data.extendedIngredients.map(ingredients => {
+        const checked = ingredientsLog[ingredients.id];
+
+        return (
+          <div key={ingredients.original} className="ingredients-list-items">
+            <label className="checkbox-label">
+              <input
+                defaultChecked={checked}
+                id={ingredients.id}
+                type="checkbox"
+                onClick={e => {
+                  handleIngredientsCheckboxCount(e);
+                  handleIngredientsLog(e);
+                }}
+              />
+              <div className="checkbox-custom"></div>
+              <p className="ingredients-list-item" key={ingredients.original}>
+                {ingredients.original}
+              </p>
+            </label>
+          </div>
+        );
+      });
     }
 
     recipeInfo = (
@@ -110,7 +179,7 @@ const RecipePage = ({ match }) => {
           />
 
           <div className="recipe-page-favourite">
-            Favourite
+            <p>Favourite</p>
             <Star />
           </div>
           <p className="recipe-page-title">{info.data.title}</p>
@@ -132,16 +201,18 @@ const RecipePage = ({ match }) => {
         <div className="recipe-page-method-ingredients">
           <div className=" recipe-page-method">
             <h1 className="recipe-page-instructions">
+              <Cook />
               Method{" "}
               {methodCheckListTotal ==
                 info.data.analyzedInstructions[0].steps.length && (
-                <span>- Enjoy your Food!</span>
+                <span> - Enjoy your Food!</span>
               )}
             </h1>
             <div className="method-list">{steps}</div>
           </div>
           <div className="recipe-page-ingredients">
             <h1 className="recipe-page-instructions">
+              <List />
               Ingredients{" "}
               {ingredientsCheckListTotal ==
                 info.data.extendedIngredients.length && (
