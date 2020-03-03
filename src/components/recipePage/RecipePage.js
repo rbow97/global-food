@@ -47,13 +47,15 @@ const RecipePage = ({ match }) => {
 
   const getLocalStorage = () => {
     const localObject = JSON.parse(localStorage.getItem("recipeStatus"));
-    setMethodLog(localObject[match.params.id].method);
-    setIngredientsLog(localObject[match.params.id].ingredients);
+    if (localObject) {
+      setMethodLog(localObject[match.params.id].method);
+      setIngredientsLog(localObject[match.params.id].ingredients);
+    }
   };
 
   const getInfoFunction = async () => {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/${match.params.id}/information?includeNutrition=true&apiKey=${APP_KEYjoe}`
+      `https://api.spoonacular.com/recipes/${match.params.id}/information?includeNutrition=true&apiKey=${APP_KEYrose}`
     );
     setInfo(response);
     setLoading(false);
@@ -108,6 +110,17 @@ const RecipePage = ({ match }) => {
     localStorage.setItem("recipeStatus", JSON.stringify(localObject));
   };
 
+  const countArray = arr => {
+    console.log(arr);
+    let total = 0;
+    arr.forEach(el => {
+      if (el === true) {
+        total++;
+      }
+    });
+    return total;
+  };
+
   let recipeInfo = null;
   let steps;
   let ingredients;
@@ -144,15 +157,15 @@ const RecipePage = ({ match }) => {
       });
     }
     if (info.data.extendedIngredients) {
-      ingredients = info.data.extendedIngredients.map(ingredients => {
-        const checked = ingredientsLog[ingredients.id];
+      ingredients = info.data.extendedIngredients.map((ingredients, index) => {
+        const checked = ingredientsLog[ingredients.original];
 
         return (
           <div key={ingredients.original} className="ingredients-list-items">
             <label className="checkbox-label">
               <input
                 defaultChecked={checked}
-                id={ingredients.id}
+                id={ingredients.original}
                 type="checkbox"
                 onClick={e => {
                   handleIngredientsCheckboxCount(e);
@@ -201,12 +214,12 @@ const RecipePage = ({ match }) => {
         <div className="recipe-page-method-ingredients">
           <div className=" recipe-page-method">
             <h1 className="recipe-page-instructions">
-              <Cook />
-              Method{" "}
-              {methodCheckListTotal ==
-                info.data.analyzedInstructions[0].steps.length && (
-                <span> - Enjoy your Food!</span>
-              )}
+              <List />
+              <span>Method</span>
+              {countArray(Object.values(methodLog)) ==
+              info.data.analyzedInstructions[0].steps.length ? (
+                <span className="recipe-page-message">- Enjoy your Food!</span>
+              ) : null}
             </h1>
             <div className="method-list">{steps}</div>
           </div>
@@ -214,10 +227,10 @@ const RecipePage = ({ match }) => {
             <h1 className="recipe-page-instructions">
               <List />
               Ingredients{" "}
-              {ingredientsCheckListTotal ==
-                info.data.extendedIngredients.length && (
-                <span> - Prepped!</span>
-              )}
+              {countArray(Object.values(ingredientsLog)) ==
+              info.data.extendedIngredients.length ? (
+                <span className="recipe-page-message"> - Prepped!</span>
+              ) : null}
             </h1>
             {ingredients}
           </div>

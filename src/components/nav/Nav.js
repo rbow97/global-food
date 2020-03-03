@@ -11,7 +11,7 @@ const Nav = props => {
   const getRecipesFunction = async () => {
     props.setLoading(true);
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/search?query=${search}&number=1&apiKey=${APP_KEYjoe}`
+      `https://api.spoonacular.com/recipes/search?query=${search}&number=1&apiKey=${APP_KEYrose}`
     );
     props.setRecipes(response.data.results);
     console.log(response);
