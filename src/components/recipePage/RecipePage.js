@@ -3,6 +3,8 @@ import axios from "axios";
 import Nav from "../nav/Nav";
 import "./RecipePage.css";
 import RecipePageInfo from "../recipePageInfo/RecipePageInfo";
+import TruncateString from "../../helpers/TruncateString";
+
 import Star from "../star/Star";
 import Egg from "../icons/egg/Egg";
 import Clock from "../icons/clock/Clock";
@@ -50,14 +52,6 @@ const RecipePage = ({ match }) => {
     setInfo(response);
     setLoading(false);
     console.log(response);
-  };
-
-  const truncateString = (str, num) => {
-    if (str.length > num) {
-      return str.slice(0, num) + "...";
-    } else {
-      return str;
-    }
   };
 
   const handleMethodCheckboxCount = e => {
@@ -248,7 +242,7 @@ const RecipePage = ({ match }) => {
             <ul className="nutrition-elements">{renderNutrients}</ul>
           </div>
           <p className="recipe-page-summary">
-            {truncateString(info.data.summary.replace(/<[^>]*>/g, ""), 1000)}
+            {TruncateString(info.data.summary.replace(/<[^>]*>/g, ""), 1000)}
           </p>
         </div>
         <RecipePageInfo
