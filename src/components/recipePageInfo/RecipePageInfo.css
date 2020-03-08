@@ -1,0 +1,78 @@
+.recipe-page-instructions {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  font-size: 18px;
+  margin: 0 0 1rem 0;
+  color: lightgrey;
+}
+
+.recipe-page-instructions-title {
+  border-bottom: 2px lightgrey solid;
+}
+
+.recipe-page-method-ingredients {
+  width: 100%;
+  font-size: 13px;
+  display: flex;
+  flex-direction: row;
+}
+
+.recipe-page-method {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  order: 1;
+  padding: 0 0 0 1.5rem;
+}
+
+.recipe-page-message {
+  color: #ff6343;
+  font-weight: 1000;
+  padding: 0 0 0 1rem;
+}
+
+.method-list-item,
+.ingredients-list-item {
+  position: relative;
+  padding: 0.5rem;
+}
+
+.recipe-page-ingredients {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  order: 0;
+}
+.recipe-page-method-ingredients p {
+  width: 100%;
+  margin: 0 0 0.5rem 1rem;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.recipe-page-method-ingredients p:after {
+  content: "";
+  position: absolute;
+  opacity: 0.5;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: -1;
+  border-radius: 2px;
+}
+
+@media (max-width: 715px) {
+  .recipe-page-method-ingredients {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recipe-page-ingredients,
+  .recipe-page-method {
+    padding: 0;
+    width: 100%;
+  }
+}

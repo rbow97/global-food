@@ -28,18 +28,26 @@
 }
 
 .nav-title {
-  color: #ff6343;
   font-weight: lighter;
   font-size: 25px;
   padding: 10px 0;
 }
 
-.nav-links {
+.nav-title a {
   color: #ff6343;
-  list-style: none;
+  text-decoration: none;
+}
+
+.nav-links {
   display: flex;
   justify-content: space-between;
   font-size: 16px;
+  list-style: none;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #ff6343;
 }
 
 .nav-links li:nth-child(2) {

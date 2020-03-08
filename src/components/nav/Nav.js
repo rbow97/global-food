@@ -1,26 +1,19 @@
 import "./Nav.css";
 import React, { useEffect, useState } from "react";
 import Logo from "../logo/Logo";
-import axios from "axios";
+import { connect } from "react-redux";
+
+import * as searchActions from "../../actions/SearchActions";
 
 const Nav = props => {
-  const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-  const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
-  const [search, setSearch] = useState("");
+  // const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
+  // const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
 
-  const getRecipesFunction = async () => {
-    props.setLoading(true);
-    const response = await axios.get(
-      `https://api.spoonacular.com/recipes/search?query=${search}&number=1&apiKey=${APP_KEYrose}`
-    );
-    props.setRecipes(response.data.results);
-    console.log(response);
-    props.setLoading(false);
-  };
+  const [search, setSearch] = useState("");
 
   const getSearchFunction = e => {
     e.preventDefault();
-    getRecipesFunction();
+    props.saveSearch(search);
     props.getQuery(search);
   };
 
@@ -28,7 +21,9 @@ const Nav = props => {
     <nav className="nav">
       <div className="nav-logo">
         <Logo />
-        <h1 className="nav-title">Global Food</h1>
+        <h1 className="nav-title">
+          <a href="#">Global Food</a>
+        </h1>
       </div>
       <form onSubmit={getSearchFunction} className="search-form">
         <input
@@ -44,12 +39,24 @@ const Nav = props => {
         </a>
       </form>
       <ul className="nav-links">
-        <li>Discover</li>
-        <li>Browse</li>
-        <li>About</li>
+        <li>
+          <a href="#">Discover</a>
+        </li>
+        <li>
+          <a href="#">Favourites</a>
+        </li>
+        <li>
+          <a href="#">About</a>
+        </li>
       </ul>
     </nav>
   );
 };
 
-export default Nav;
+const mapDispatchToProps = dispatch => {
+  return {
+    saveSearch: searchValue => dispatch(searchActions.fetchSearch(searchValue))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Nav);

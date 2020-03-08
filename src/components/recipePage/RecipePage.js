@@ -2,19 +2,18 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import Nav from "../nav/Nav";
 import "./RecipePage.css";
+import RecipePageInfo from "../recipePageInfo/RecipePageInfo";
 import Star from "../star/Star";
 import Egg from "../icons/egg/Egg";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
-import Cook from "../icons/cook/Cook";
-import List from "../icons/list/List";
+import Vegetable from "../icons/vegetable/Vegetable";
 
 const RecipePage = ({ match }) => {
   const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
   const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
-  const [nutrition, setNutrition] = useState({});
   let [methodCheckListTotal, setMethodCheckListTotal] = useState(0);
   let [ingredientsCheckListTotal, setIngredientsCheckListTotal] = useState(0);
   const [ingredientsLog, setIngredientsLog] = useState({});
@@ -24,19 +23,10 @@ const RecipePage = ({ match }) => {
   //   ingredients: {
   //     uid: true
   //     uid: true
-  //     uid: true
-  //     uid: true
-  //     uid: true
-  //     uid: true
   //   },
   //   method: {
   //     uid: true
   //     uid: true
-  //     uid: true
-  //     uid: true
-  //     uid: true
-  //     uid: true
-
   //   }
   // }}
 
@@ -47,7 +37,7 @@ const RecipePage = ({ match }) => {
 
   const getLocalStorage = () => {
     const localObject = JSON.parse(localStorage.getItem("recipeStatus"));
-    if (localObject) {
+    if (localObject[match.params.id]) {
       setMethodLog(localObject[match.params.id].method);
       setIngredientsLog(localObject[match.params.id].ingredients);
     }
@@ -110,26 +100,25 @@ const RecipePage = ({ match }) => {
     localStorage.setItem("recipeStatus", JSON.stringify(localObject));
   };
 
-  const countArray = arr => {
-    console.log(arr);
-    let total = 0;
-    arr.forEach(el => {
-      if (el === true) {
-        total++;
-      }
-    });
-    return total;
-  };
-
   let recipeInfo = null;
   let steps;
   let ingredients;
   let vegetarian;
   if (info.data) {
     if (!info.data.vegetarian) {
-      vegetarian = <p className="recipe-page-vegetarian">Vegetarian: no</p>;
+      vegetarian = (
+        <div className="recipe-page-vegetarian">
+          <Vegetable />
+          <p>Vegetarian: No</p>
+        </div>
+      );
     } else {
-      vegetarian = <p>Vegetarian: yes</p>;
+      vegetarian = (
+        <div className="recipe-page-vegetarian">
+          <Vegetable />
+          <p>Vegetarian: Yes</p>
+        </div>
+      );
     }
     if (info.data.analyzedInstructions[0].steps) {
       steps = info.data.analyzedInstructions[0].steps.map(step => {
@@ -157,7 +146,7 @@ const RecipePage = ({ match }) => {
       });
     }
     if (info.data.extendedIngredients) {
-      ingredients = info.data.extendedIngredients.map((ingredients, index) => {
+      ingredients = info.data.extendedIngredients.map(ingredients => {
         const checked = ingredientsLog[ingredients.original];
 
         return (
@@ -182,66 +171,99 @@ const RecipePage = ({ match }) => {
       });
     }
 
+    let renderNutrients = null;
+    const nutrientsArr = info.data.nutrition.nutrients;
+
+    if (nutrientsArr) {
+      renderNutrients = nutrientsArr.map(el => {
+        if (
+          el.title === "Calories" ||
+          el.title === "Fat" ||
+          el.title === "Protein" ||
+          el.title === "Sugar"
+        ) {
+          return (
+            <li className="nutrition-element">
+              <p>{el.title}</p>
+              <p>
+                {Math.round(el.amount)} {el.unit}
+              </p>
+            </li>
+          );
+        }
+        if (el.title === "Carbohydrates") {
+          return (
+            <li className="nutrition-element">
+              <p>{"Carbs"}</p>
+              <p>
+                {Math.round(el.amount)} {el.unit}
+              </p>
+            </li>
+          );
+        }
+      });
+    }
+
+    let renderImage = null;
+    if (info.data.imageType === "jpg") {
+      renderImage = (
+        <img
+          className="recipe-page-image"
+          src={`https://spoonacular.com/recipeImages/${match.params.id}-312x231.jpg`}
+          alt={info.data.title}
+        />
+      );
+    } else if (info.data.imageType === "png") {
+      renderImage = (
+        <img
+          className="recipe-page-image"
+          src={`https://spoonacular.com/recipeImages/${match.params.id}-312x231.png`}
+          alt={info.data.title}
+        />
+      );
+    }
+
     recipeInfo = (
       <div className="recipe-page-wrapper">
         <div className="recipe-page-header">
-          <img
-            className="recipe-page-image"
-            src={`https://spoonacular.com/recipeImages/${match.params.id}-312x231.jpg`}
-            alt={info.data.title}
-          />
-
+          <p className="recipe-page-title">{info.data.title}</p>
+          {renderImage}
           <div className="recipe-page-favourite">
             <p>Favourite</p>
             <Star />
           </div>
-          <p className="recipe-page-title">{info.data.title}</p>
 
           <p className="recipe-page-servings">
             <Plate />
-            Servings: 6
+            <span>Servings: 6</span>
           </p>
           <p className="recipe-page-time">
             <Clock />
-            Ready in 45 minutes
+            <span>Ready in 45 minutes</span>
           </p>
 
+          {vegetarian}
+          <div className="nutrition-all">
+            <p className="nutrition-title">Nutrition per serving:</p>
+            <ul className="nutrition-elements">{renderNutrients}</ul>
+          </div>
           <p className="recipe-page-summary">
             {truncateString(info.data.summary.replace(/<[^>]*>/g, ""), 1000)}
           </p>
-          {vegetarian}
         </div>
-        <div className="recipe-page-method-ingredients">
-          <div className=" recipe-page-method">
-            <h1 className="recipe-page-instructions">
-              <List />
-              <span>Method</span>
-              {countArray(Object.values(methodLog)) ==
-              info.data.analyzedInstructions[0].steps.length ? (
-                <span className="recipe-page-message">- Enjoy your Food!</span>
-              ) : null}
-            </h1>
-            <div className="method-list">{steps}</div>
-          </div>
-          <div className="recipe-page-ingredients">
-            <h1 className="recipe-page-instructions">
-              <List />
-              Ingredients{" "}
-              {countArray(Object.values(ingredientsLog)) ==
-              info.data.extendedIngredients.length ? (
-                <span className="recipe-page-message"> - Prepped!</span>
-              ) : null}
-            </h1>
-            {ingredients}
-          </div>
-        </div>
+        <RecipePageInfo
+          info={info}
+          methodLog={methodLog}
+          ingredientsLog={ingredientsLog}
+          steps={steps}
+          ingredients={ingredients}
+        />
       </div>
     );
   }
 
   return (
     <Fragment>
-      <Nav />
       <div>{loading ? <Egg /> : recipeInfo}</div>
     </Fragment>
   );

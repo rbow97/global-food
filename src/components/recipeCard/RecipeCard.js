@@ -4,62 +4,74 @@ import axios from "axios";
 import Star from "../star/Star";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
-import RecipePage from "../recipePage/RecipePage";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as favouriteActions from "../../actions/FavouriteActions";
 
-const RecipeCard = ({ id, title, image, time, servings, getFavourites }) => {
-  // const APP_KEY = "3bb40b484ae042bdbb10a1b038f5550a";
+const RecipeCard = props => {
+  const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
   const [info, setInfo] = useState([]);
 
   // const getInfoFunction = async id => {
   //   const response = await axios.get(
-  //     `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APP_KEY}`
+  //     `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APP_KEYrose}`
   //   );
+
   //   setInfo(response);
   //   console.log(response);
   // };
 
   // useEffect(() => {
-  //   getInfoFunction(id);
+  // getInfoFunction(id);
   // }, []);
 
-  const getTitleFunction = () => {
-    getFavourites(title);
+  // const getTitleFunction = () => {
+  //   getFavourites(title);
+  // };
+
+  const saveRecipeAsFavourite = recipe => {
+    props.saveFavourite(recipe);
   };
 
   return (
     <div className="result-card">
       <div className="result-card-text">
-        <Link to={`/recipes/${id}`}>
-          <p className="result-card-title">{title}</p>
+        <Link to={`/recipes/${props.recipe.id}`}>
+          <p className="result-card-title">{props.recipe.title}</p>
         </Link>
         <div className="result-card-info">
           <Plate />
-          <p>Serves: {servings}</p>
+          <p>Serves: {props.recipe.servings}</p>
         </div>
         <div className="result-card-info">
-          <Clock /> Ready in {time} minutes
+          <Clock /> Ready in {props.recipe.readyInMinutes} minutes
         </div>
       </div>
       <div className="result-card-favourite">
-        <a
-          href="#"
+        <span
           className="result-card-favourite"
-          onClick={getTitleFunction}
+          onClick={recipe => saveRecipeAsFavourite(props.recipe)}
         >
           Favourite
           <Star />
-        </a>
+        </span>
       </div>
-      <Link to={`/recipes/${id}`}>
+      <Link to={`/recipes/${props.recipe.id}`}>
         <img
           className="result-card-image"
-          src={` https://spoonacular.com/recipeImages/${image}`}
-          alt={title}
+          src={` https://spoonacular.com/recipeImages/${props.recipe.image}`}
+          alt={props.recipe.title}
         />
       </Link>
     </div>
   );
 };
 
-export default RecipeCard;
+const mapDispatchToProps = dispatch => {
+  return {
+    saveFavourite: favouriteObject =>
+      dispatch(favouriteActions.setFavourite(favouriteObject))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(RecipeCard);

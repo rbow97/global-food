@@ -1,16 +1,17 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Nav from "../nav/Nav";
+
 import Browse from "../browse/Browse";
 import SearchResult from "../searchResult/SearchResult";
-import RecipeCard from "../recipeCard/RecipeCard";
 import RecipePage from "../recipePage/RecipePage";
+import Nav from "../nav/Nav";
 
 const App = () => {
   return (
     <Router>
       <div className="App">
+        <Nav />
         <Switch>
           <Route path="/" exact component={SearchResult} />
           <Route path="/browse" component={Browse} />
