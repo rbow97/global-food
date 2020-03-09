@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import * as SearchActions from "../../actions/SearchActions";
 import "./Landing.css";
 import Picnic from "../../images/picnic.png";
+import { connect } from "react-redux";
+import { Redirect, withRouter } from "react-router";
+import * as SearchActions from "../../actions/SearchActions";
 
 const Landing = props => {
   const [search, setSearch] = useState("");
+  // const [redirect, setRedirect] = useState(false);
 
   const getSearchFunction = e => {
     e.preventDefault();
-    props.saveSearch(search);
-    console.log("search");
+    props.history.push(`/searchresults/${search}`);
   };
 
   return (
@@ -41,10 +42,10 @@ const Landing = props => {
   );
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToState = dispatch => {
   return {
     saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue))
   };
 };
 
-export default connect(null, mapDispatchToProps)(Landing);
+export default connect(null, mapDispatchToState)(withRouter(Landing));

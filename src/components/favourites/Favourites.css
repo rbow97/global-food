@@ -5,10 +5,54 @@
   background-color: white;
   border-radius: 0.5rem 0.5rem 0 0;
   font-family: "roboto mono", sans-serif;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: lighter;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-direction: column;
   position: relative;
+}
+
+.favourites-container-title {
+  text-align: center;
+  color: #828282;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 1rem 2.5rem 1rem;
+  padding: 0 0 0.5rem 0;
+  box-shadow: 0 0.5px #828282;
+}
+
+.favourite-card {
+  display: flex;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0.5px #828282;
+}
+
+.favourite-card-image {
+  width: 200px;
+  margin: 0 0.5rem 0 0;
+}
+
+.favourite-card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.favourite-card-text a {
+  text-decoration: none;
+  color: black;
+}
+
+.favourite-card-info {
+  display: flex;
+}
+
+.favourite-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
 }

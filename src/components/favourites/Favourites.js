@@ -9,21 +9,34 @@ import Clock from "../icons/clock/Clock";
 const Favourites = props => {
   let renderFavouritesInfo = null;
   renderFavouritesInfo = props.favouritesInfo.map(favouriteInfo => (
-    <div className="favourites-container">
-      <Link to={`/recipes/${favouriteInfo.id}`}>
-        <p className="result-card-title">{favouriteInfo.title}</p>
-      </Link>
-      <div className="result-card-info">
-        <Plate />
-        <p>Serves: {favouriteInfo.servings}</p>
-      </div>
-      <div className="result-card-info">
-        <Clock /> Ready in {favouriteInfo.readyInMinutes} minutes
+    <div className="favourite-card">
+      <img
+        className="favourite-card-image"
+        src={` https://spoonacular.com/recipeImages/${favouriteInfo.image}`}
+        alt={favouriteInfo.title}
+      />
+
+      <div className="favourite-card-text">
+        <Link to={`/recipes/${favouriteInfo.id}`}>
+          <p className="favourite-card-title">{favouriteInfo.title}</p>
+        </Link>
+        <div className="favourite-card-info">
+          <Plate />
+          <p>Serves: {favouriteInfo.servings}</p>
+        </div>
+        <div className="favourite-card-info">
+          <Clock /> Ready in {favouriteInfo.readyInMinutes} minutes
+        </div>
       </div>
     </div>
   ));
 
-  return <div>{renderFavouritesInfo}</div>;
+  return (
+    <div className="favourites-container">
+      <p className="favourites-container-title">Your Favourites</p>
+      <div className="favourite-cards-container">{renderFavouritesInfo}</div>
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({

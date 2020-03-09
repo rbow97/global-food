@@ -6,17 +6,6 @@ import Star from "../star/Star";
 import * as favouriteActions from "../../actions/FavouriteActions";
 
 const FavouritesCard = props => {
-  const setStateFromLocalStorage = () => {
-    const localFavourites = JSON.parse(localStorage.getItem("favourites"));
-    if (localFavourites) {
-      props.loadLocalFavourites(localFavourites);
-    }
-  };
-
-  useEffect(() => {
-    setStateFromLocalStorage();
-  }, []);
-
   let renderFavouriteName = null;
   // console.log(props.favourites);
   if (props.favourites) {
@@ -39,11 +28,4 @@ const mapStateToProps = state => ({
   favourites: state.FavouriteReducer.favourites
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    loadLocalFavourites: favouritesArray =>
-      dispatch(favouriteActions.loadLocalFavourites(favouritesArray))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(FavouritesCard);
+export default connect(mapStateToProps)(FavouritesCard);

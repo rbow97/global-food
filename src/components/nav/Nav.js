@@ -1,8 +1,8 @@
 import "./Nav.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Logo from "../logo/Logo";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import * as searchActions from "../../actions/SearchActions";
 
@@ -14,31 +14,35 @@ const Nav = props => {
 
   const getSearchFunction = e => {
     e.preventDefault();
-    props.saveSearch(search);
-    props.getQuery(search);
+    props.history.push(`/searchresults/${search}`);
   };
+
+  console.log(props);
 
   return (
     <nav className="nav">
       <div className="nav-logo">
         <Logo />
         <h1 className="nav-title">
-          <a href="#">Global Food</a>
+          <Link to={`/`}>Global Food</Link>
         </h1>
       </div>
-      <form onSubmit={getSearchFunction} className="search-form">
-        <input
-          className="search-bar"
-          type="text"
-          value={search}
-          onChange={e => {
-            setSearch(e.target.value);
-          }}
-        />
-        <a className="search-button" href="#">
-          Search
-        </a>
-      </form>
+      {props.location.pathname === "/" ? null : (
+        <form onSubmit={getSearchFunction} className="search-form">
+          <input
+            className="search-bar"
+            type="text"
+            value={search}
+            onChange={e => {
+              setSearch(e.target.value);
+            }}
+          />
+          <a className="search-button" href="#">
+            Search
+          </a>
+        </form>
+      )}
+
       <ul className="nav-links">
         <li>
           <Link to={`/discover`}>Discover</Link>
@@ -60,4 +64,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(Nav);
+export default connect(null, mapDispatchToProps)(withRouter(Nav));

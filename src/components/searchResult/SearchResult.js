@@ -1,15 +1,17 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import RecipeCard from "../recipeCard/RecipeCard";
 import FavouritesCard from "../favouritesCard/FavouritesCard";
 import Landing from "../landing/Landing";
 import Nav from "../nav/Nav";
 import Egg from "../icons/egg/Egg";
+import { useParams } from "react-router-dom";
 import "./SearchResult.css";
+
+import * as SearchActions from "../../actions/SearchActions";
 
 const SearchResult = props => {
   // const [recipes, setRecipes] = useState([]);
-  const [favourites, setFavourites] = useState([]);
 
   // const getFavouritesFunction = title => {
   //   const newFavourites = [...favourites];
@@ -24,6 +26,16 @@ const SearchResult = props => {
   //   setFavourites(newFavourites);
   //   console.log(favourites);
   // };
+
+  useEffect(() => {
+    getResults();
+  }, []);
+
+  let { query } = useParams();
+
+  const getResults = () => {
+    props.saveSearch(query);
+  };
 
   let renderRecipes = null;
   if (props.recipes) {
@@ -61,10 +73,16 @@ const SearchResult = props => {
   );
 };
 
+const mapDispatchToState = dispatch => {
+  return {
+    saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue))
+  };
+};
+
 const mapStateToProps = state => ({
   recipes: state.SearchReducer.searchValue,
   loading: state.SearchReducer.searching,
   query: state.SearchReducer.query
 });
 
-export default connect(mapStateToProps)(SearchResult);
+export default connect(mapStateToProps, mapDispatchToState)(SearchResult);

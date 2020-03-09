@@ -1,7 +1,6 @@
 .result-card {
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
   width: 100%;
   border-bottom: 1px black solid;
   padding: 0 0 1rem 0;
@@ -10,6 +9,7 @@
 
 .result-card-title {
   text-transform: uppercase;
+  letter-spacing: 1px;
   font-weight: bold;
   font-size: 13px;
   margin: 0 0 1rem 0;
