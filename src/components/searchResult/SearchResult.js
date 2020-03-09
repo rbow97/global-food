@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import RecipeCard from "../recipeCard/RecipeCard";
 import FavouritesCard from "../favouritesCard/FavouritesCard";
@@ -32,10 +32,10 @@ const SearchResult = props => {
     ));
   }
 
-  let renderFavourites = null;
-  renderFavourites = favourites.map(favourite => (
-    <FavouritesCard key={favourite} favouriteProp={favourite} />
-  ));
+  // let renderFavourites = null;
+  // renderFavourites = favourites.map(favourite => (
+  //   <FavouritesCard key={favourite} favouriteProp={favourite} />
+  // ));
 
   return (
     <Fragment>
@@ -48,7 +48,7 @@ const SearchResult = props => {
           <div className="results-favourites-wrapper">
             <div className="results-favourites">
               <p className="favourites-title">Your Favourites</p>
-              {renderFavourites}
+              <FavouritesCard />
             </div>
           </div>
         </div>

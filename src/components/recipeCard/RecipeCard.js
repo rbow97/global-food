@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./RecipeCard.css";
+import "../icons/emptyStar/EmptyStar.css";
 import axios from "axios";
 import Star from "../star/Star";
+import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
 import { Link } from "react-router-dom";
@@ -29,8 +31,29 @@ const RecipeCard = props => {
   //   getFavourites(title);
   // };
 
+  const checkDuplicateFavourite = recipe => {
+    const recipes = JSON.parse(localStorage.getItem("favourites"));
+    let check = true;
+    if (recipes) {
+      recipes.forEach(el => {
+        if (el.id === recipe.id) {
+          check = false;
+        }
+      });
+    }
+    return check;
+  };
+
   const saveRecipeAsFavourite = recipe => {
-    props.saveFavourite(recipe);
+    const check = checkDuplicateFavourite(recipe);
+
+    if (check) {
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify([...props.favourites, recipe])
+      );
+      props.saveFavourite(recipe);
+    }
   };
 
   return (
@@ -48,13 +71,13 @@ const RecipeCard = props => {
         </div>
       </div>
       <div className="result-card-favourite">
-        <span
-          className="result-card-favourite"
-          onClick={recipe => saveRecipeAsFavourite(props.recipe)}
+        <button
+          className="result-card-favourite-contents"
+          onClick={() => saveRecipeAsFavourite(props.recipe)}
         >
           Favourite
-          <Star />
-        </span>
+          <EmptyStar />
+        </button>
       </div>
       <Link to={`/recipes/${props.recipe.id}`}>
         <img
@@ -67,6 +90,10 @@ const RecipeCard = props => {
   );
 };
 
+const mapStateToProps = state => ({
+  favourites: state.FavouriteReducer.favourites
+});
+
 const mapDispatchToProps = dispatch => {
   return {
     saveFavourite: favouriteObject =>
@@ -74,4 +101,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(RecipeCard);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeCard);

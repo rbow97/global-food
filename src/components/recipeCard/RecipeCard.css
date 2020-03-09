@@ -39,11 +39,24 @@
 .result-card-favourite {
   font-size: 12px;
   order: 2;
-  cursor: pointer;
   display: flex;
+
   align-items: flex-start;
   color: black;
   text-decoration: none;
+}
+
+.result-card-favourite-contents {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  font-family: "roboto mono", sans-serif;
+}
+
+.result-card-favourite-contents:active .empty-star #Star-2 {
+  animation: fillStar 2s forwards;
 }
 
 .result-card-image {
@@ -55,9 +68,9 @@
 
 @keyframes fillStar {
   0% {
-    color: lightgrey;
+    fill: lightgrey;
   }
   100% {
-    color: #f8e21f;
+    fill: #f8e21f;
   }
 }

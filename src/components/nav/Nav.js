@@ -2,6 +2,7 @@ import "./Nav.css";
 import React, { useEffect, useState } from "react";
 import Logo from "../logo/Logo";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import * as searchActions from "../../actions/SearchActions";
 
@@ -40,10 +41,10 @@ const Nav = props => {
       </form>
       <ul className="nav-links">
         <li>
-          <a href="#">Discover</a>
+          <Link to={`/discover`}>Discover</Link>
         </li>
         <li>
-          <a href="#">Favourites</a>
+          <Link to={`/favourites`}>Favourites</Link>
         </li>
         <li>
           <a href="#">About</a>

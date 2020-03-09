@@ -1,24 +1,49 @@
-import React, { Fragment } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import "./FavouritesCard.css";
+import TruncateString from "../../helpers/TruncateString";
 import Star from "../star/Star";
+import * as favouriteActions from "../../actions/FavouriteActions";
 
-const FavouritesCard = ({ favouriteProp }) => {
-  const truncateString = (str, num) => {
-    if (str.length > num) {
-      return str.slice(0, num) + "...";
-    } else {
-      return str;
+const FavouritesCard = props => {
+  const setStateFromLocalStorage = () => {
+    const localFavourites = JSON.parse(localStorage.getItem("favourites"));
+    if (localFavourites) {
+      props.loadLocalFavourites(localFavourites);
     }
   };
 
-  return (
-    <Fragment>
-      <div className="favourites-selection">
+  useEffect(() => {
+    setStateFromLocalStorage();
+  }, []);
+
+  let renderFavouriteName = null;
+  // console.log(props.favourites);
+  if (props.favourites) {
+    renderFavouriteName = props.favourites.map(favourite => (
+      <li key={favourite.id}>
         <Star />
-        {truncateString(favouriteProp, 20)}
-      </div>
-    </Fragment>
+        {TruncateString(favourite.title, 20)}
+      </li>
+    ));
+  }
+
+  return (
+    <div className="favourites-selection">
+      <ul>{renderFavouriteName}</ul>
+    </div>
   );
 };
 
-export default FavouritesCard;
+const mapStateToProps = state => ({
+  favourites: state.FavouriteReducer.favourites
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadLocalFavourites: favouritesArray =>
+      dispatch(favouriteActions.loadLocalFavourites(favouritesArray))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FavouritesCard);

@@ -22,13 +22,13 @@
 
 .results-favourites-wrapper {
   width: 21%;
-  margin: 2rem 0 0 0;
+  margin: 2rem 5rem;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
   background-color: #e9cdf0;
   clip-path: polygon(7% 5%, 97% 3%, 95% 99%, 6% 96%);
-  position: fixed;
+  /* position: fixed; */
   left: 100px;
   top: 120px;
 }

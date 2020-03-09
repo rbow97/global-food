@@ -1,0 +1,14 @@
+.favourites-container {
+  margin: 2rem 3rem 0 3rem;
+  min-height: 100vh;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-family: "roboto mono", sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: relative;
+}
