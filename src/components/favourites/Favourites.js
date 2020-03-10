@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import TruncateString from "../../helpers/TruncateString";
 
 import "./Favourites.css";
 import Plate from "../icons/plate/Plate";
 import Clock from "../icons/clock/Clock";
+import ClearButton from "../icons/clearButton/ClearButton";
 
 const Favourites = props => {
   console.log(props.favouritesInfo);
@@ -23,7 +25,9 @@ const Favourites = props => {
             pathname: `/recipes/${favouriteInfo.id}`
           }}
         >
-          <p className="favourite-card-title">{favouriteInfo.title}</p>
+          <p className="favourite-card-title">
+            {TruncateString(favouriteInfo.title, 25)}
+          </p>
         </Link>
         <div className="favourite-card-info">
           <Plate />
@@ -33,6 +37,9 @@ const Favourites = props => {
           <Clock /> Ready in {favouriteInfo.readyInMinutes} minutes
         </div>
       </div>
+      <button className="clear-button-wrapper">
+        <ClearButton />
+      </button>
     </div>
   ));
 

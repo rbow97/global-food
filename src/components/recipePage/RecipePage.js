@@ -87,7 +87,7 @@ const RecipePage = props => {
   };
 
   const updateLocalStorage = (method, ingredients) => {
-    let localObject = {};
+    let localObject = JSON.parse(localStorage.getItem("recipeStatus"));
 
     localObject[props.match.params.id] = {
       method: method,
@@ -245,7 +245,6 @@ const RecipePage = props => {
     if (props.favourites) {
       props.favourites.forEach(favourite => {
         const value = favourite.id;
-        console.log(value);
         const favouriteString = value.toString();
         // console.log(favouriteString);
         if (favouriteString == props.match.params.id) {

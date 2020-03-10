@@ -65,7 +65,7 @@ const RecipeCard = props => {
           className="result-card-favourite-contents"
           onClick={() => saveRecipeAsFavourite(props.recipe)}
         >
-          Favourite
+          <p>Favourite</p>
           <EmptyStar />
         </button>
       </div>

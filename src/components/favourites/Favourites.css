@@ -14,33 +14,42 @@
 
 .favourites-container-title {
   font-family: "shrikhand", sans-serif;
-  text-align: left;
-  color: #ff6343;
-  font-size: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
+  text-align: center;
+  color: #c4c4c4;
+  font-size: 25px;
   letter-spacing: 1px;
   margin: 0 1rem 2.5rem 1rem;
   padding: 0 0 0.5rem 0;
-  box-shadow: 0 0.5px #828282;
+  /* border-bottom: 1px #c4c4c4 solid; */
 }
 
 .favourite-card {
   display: flex;
   padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 0 0 0.5px #828282;
+  background-color: #fbf1f1;
+  /* border-bottom: 1px #c4c4c4 solid; */
 }
 
 .favourite-card-image {
-  width: 200px;
+  width: 130px;
+  height: 130px;
   margin: 0 0.5rem 0 0;
 }
 
 .favourite-card-text {
+  margin: 0 0 0 3rem;
+  width: 70%;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.favourite-card-title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 .favourite-card-text a {
@@ -55,5 +64,29 @@
 .favourite-cards-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+  grid-gap: 2rem;
+}
+
+.clear-button-wrapper {
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  border: none;
+  background: none;
+  align-self: flex-end;
+  width: 17px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+
+.clear-button-wrapper:hover {
+  transform: scale(1.2);
+}
+
+.clear-button-wrapper:hover #cross {
+  fill: #ff6343;
+}
+
+.clear-button-wrapper:focus {
+  outline: none;
 }

@@ -1,9 +1,47 @@
 .star-icon {
-  height: 8px;
+  height: 10px;
   fill: #f8e21f;
   align-self: center;
+  animation: buttonMove 0.5s ease-out;
 }
 
 #Star-1 {
   fill: #f8e21f;
+  transform-origin: center;
+  animation: buttonSaved 0.5s ease-out;
+}
+
+@keyframes buttonSaved {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(180deg);
+  }
+
+  50% {
+    transform: rotate(360deg);
+  }
+
+  75% {
+    transform: rotate(540deg);
+  }
+  100% {
+    transform: rotate(720deg);
+  }
+}
+
+@keyframes buttonMove {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
