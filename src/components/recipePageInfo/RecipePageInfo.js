@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import countArray from "../../helpers/countArray";
 import "./RecipePageInfo.css";
 import List from "../icons/list/List";
@@ -16,7 +16,7 @@ const RecipePageInfo = ({
         <h1 className="recipe-page-instructions">
           <List />
           <span className="recipe-page-instructions-title">Method</span>
-          {countArray(Object.values(methodLog)) ==
+          {countArray(Object.values(methodLog)) ===
           info.data.analyzedInstructions[0].steps.length ? (
             <span className="recipe-page-message">- Enjoy your Food!</span>
           ) : null}
@@ -27,7 +27,7 @@ const RecipePageInfo = ({
         <h1 className="recipe-page-instructions">
           <List />
           <span className="recipe-page-instructions-title">Ingredients</span>
-          {countArray(Object.values(ingredientsLog)) ==
+          {countArray(Object.values(ingredientsLog)) ===
           info.data.extendedIngredients.length ? (
             <span className="recipe-page-message"> - Prepped!</span>
           ) : null}

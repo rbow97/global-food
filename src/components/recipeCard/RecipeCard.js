@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./RecipeCard.css";
 import "../icons/emptyStar/EmptyStar.css";
-import axios from "axios";
-import Star from "../star/Star";
+import checkDuplicateFavourite from "../../helpers/CheckDuplicateFavourite";
 import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
@@ -11,8 +10,7 @@ import { connect } from "react-redux";
 import * as favouriteActions from "../../actions/FavouriteActions";
 
 const RecipeCard = props => {
-  const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-  const [info, setInfo] = useState([]);
+  // const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
 
   // const getInfoFunction = async id => {
   //   const response = await axios.get(
@@ -31,19 +29,6 @@ const RecipeCard = props => {
   //   getFavourites(title);
   // };
 
-  const checkDuplicateFavourite = recipe => {
-    const recipes = JSON.parse(localStorage.getItem("favourites"));
-    let check = true;
-    if (recipes) {
-      recipes.forEach(el => {
-        if (el.id === recipe.id) {
-          check = false;
-        }
-      });
-    }
-    return check;
-  };
-
   const saveRecipeAsFavourite = recipe => {
     const check = checkDuplicateFavourite(recipe);
 
@@ -59,7 +44,12 @@ const RecipeCard = props => {
   return (
     <div className="result-card">
       <div className="result-card-text">
-        <Link to={`/recipes/${props.recipe.id}`}>
+        <Link
+          to={{
+            state: { recipe: props.recipe },
+            pathname: `/recipes/${props.recipe.id}`
+          }}
+        >
           <p className="result-card-title">{props.recipe.title}</p>
         </Link>
         <div className="result-card-info">

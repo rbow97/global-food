@@ -17,8 +17,6 @@ const Nav = props => {
     props.history.push(`/searchresults/${search}`);
   };
 
-  console.log(props);
-
   return (
     <nav className="nav">
       <div className="nav-logo">

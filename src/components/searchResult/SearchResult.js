@@ -1,18 +1,14 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import RecipeCard from "../recipeCard/RecipeCard";
 import FavouritesCard from "../favouritesCard/FavouritesCard";
 import Landing from "../landing/Landing";
-import Nav from "../nav/Nav";
 import Egg from "../icons/egg/Egg";
 import { useParams } from "react-router-dom";
 import "./SearchResult.css";
-
 import * as SearchActions from "../../actions/SearchActions";
 
 const SearchResult = props => {
-  // const [recipes, setRecipes] = useState([]);
-
   // const getFavouritesFunction = title => {
   //   const newFavourites = [...favourites];
   //   // Check for duplicates
@@ -27,11 +23,10 @@ const SearchResult = props => {
   //   console.log(favourites);
   // };
 
+  let { query } = useParams();
   useEffect(() => {
     getResults();
-  }, []);
-
-  let { query } = useParams();
+  }, [query]);
 
   const getResults = () => {
     props.saveSearch(query);
@@ -51,7 +46,9 @@ const SearchResult = props => {
 
   return (
     <Fragment>
-      {props.recipes.length > 0 ? (
+      {props.loading ? (
+        <Egg />
+      ) : (
         <div className="results-container">
           <div className="results-cards">
             <p className="results-for">Results for '{props.query}'</p>
@@ -64,10 +61,6 @@ const SearchResult = props => {
             </div>
           </div>
         </div>
-      ) : props.loading ? (
-        <Egg />
-      ) : (
-        <Landing />
       )}
     </Fragment>
   );

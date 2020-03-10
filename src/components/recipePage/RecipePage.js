@@ -1,18 +1,21 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as FavouriteActions from "../../actions/FavouriteActions";
 import axios from "axios";
-import Nav from "../nav/Nav";
 import "./RecipePage.css";
 import RecipePageInfo from "../recipePageInfo/RecipePageInfo";
 import TruncateString from "../../helpers/TruncateString";
-
+import CheckDuplicateFavourite from "../../helpers/CheckDuplicateFavourite";
+import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Star from "../star/Star";
 import Egg from "../icons/egg/Egg";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
 import Vegetable from "../icons/vegetable/Vegetable";
 
-const RecipePage = ({ match }) => {
-  const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
+const RecipePage = props => {
+  // const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
   const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
@@ -39,19 +42,19 @@ const RecipePage = ({ match }) => {
 
   const getLocalStorage = () => {
     const localObject = JSON.parse(localStorage.getItem("recipeStatus"));
-    if (localObject[match.params.id]) {
-      setMethodLog(localObject[match.params.id].method);
-      setIngredientsLog(localObject[match.params.id].ingredients);
+    if (localObject[props.match.params.id]) {
+      setMethodLog(localObject[props.match.params.id].method);
+      setIngredientsLog(localObject[props.match.params.id].ingredients);
     }
   };
 
   const getInfoFunction = async () => {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/${match.params.id}/information?includeNutrition=true&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/${props.match.params.id}/information?includeNutrition=true&apiKey=${APP_KEYjoe}`
     );
     setInfo(response);
     setLoading(false);
-    console.log(response);
+    // console.log(response);
   };
 
   const handleMethodCheckboxCount = e => {
@@ -86,7 +89,7 @@ const RecipePage = ({ match }) => {
   const updateLocalStorage = (method, ingredients) => {
     let localObject = {};
 
-    localObject[match.params.id] = {
+    localObject[props.match.params.id] = {
       method: method,
       ingredients: ingredients
     };
@@ -177,7 +180,7 @@ const RecipePage = ({ match }) => {
           el.title === "Sugar"
         ) {
           return (
-            <li className="nutrition-element">
+            <li key={el.title} className="nutrition-element">
               <p>{el.title}</p>
               <p>
                 {Math.round(el.amount)} {el.unit}
@@ -187,7 +190,7 @@ const RecipePage = ({ match }) => {
         }
         if (el.title === "Carbohydrates") {
           return (
-            <li className="nutrition-element">
+            <li key={el.title} className="nutrition-element">
               <p>{"Carbs"}</p>
               <p>
                 {Math.round(el.amount)} {el.unit}
@@ -203,7 +206,7 @@ const RecipePage = ({ match }) => {
       renderImage = (
         <img
           className="recipe-page-image"
-          src={`https://spoonacular.com/recipeImages/${match.params.id}-312x231.jpg`}
+          src={`https://spoonacular.com/recipeImages/${props.match.params.id}-312x231.jpg`}
           alt={info.data.title}
         />
       );
@@ -211,10 +214,52 @@ const RecipePage = ({ match }) => {
       renderImage = (
         <img
           className="recipe-page-image"
-          src={`https://spoonacular.com/recipeImages/${match.params.id}-312x231.png`}
+          src={`https://spoonacular.com/recipeImages/${props.match.params.id}-312x231.png`}
           alt={info.data.title}
         />
       );
+    }
+
+    const saveRecipeAsFavourite = recipe => {
+      // const check = CheckDuplicateFavourite(recipe);
+
+      props.saveFavourite(recipe);
+      // localStorage.setItem(
+      //   "favourites",
+      //   JSON.stringify([...props.favourites, recipe])
+      // );
+    };
+
+    let favouriteButton = (
+      <button
+        onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+        className="recipe-page-favourite-unsaved"
+      >
+        <p>Favourite</p>
+        <EmptyStar />
+      </button>
+    );
+
+    // console.log(props.location);
+
+    if (props.favourites) {
+      props.favourites.forEach(favourite => {
+        const value = favourite.id;
+        console.log(value);
+        const favouriteString = value.toString();
+        // console.log(favouriteString);
+        if (favouriteString == props.match.params.id) {
+          return (favouriteButton = (
+            <button
+              onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+              className="recipe-page-favourite-saved"
+            >
+              <p>Favourite</p>
+              <Star />
+            </button>
+          ));
+        }
+      });
     }
 
     recipeInfo = (
@@ -222,18 +267,14 @@ const RecipePage = ({ match }) => {
         <div className="recipe-page-header">
           <p className="recipe-page-title">{info.data.title}</p>
           {renderImage}
-          <div className="recipe-page-favourite">
-            <p>Favourite</p>
-            <Star />
-          </div>
-
+          {favouriteButton}
           <p className="recipe-page-servings">
             <Plate />
-            <span>Servings: 6</span>
+            <span>Servings: {info.data.servings}</span>
           </p>
           <p className="recipe-page-time">
             <Clock />
-            <span>Ready in 45 minutes</span>
+            <span>Ready in {info.data.readyInMinutes} minutes</span>
           </p>
 
           {vegetarian}
@@ -263,4 +304,18 @@ const RecipePage = ({ match }) => {
   );
 };
 
-export default RecipePage;
+const mapStateToProps = state => ({
+  favourites: state.FavouriteReducer.favourites
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+    saveFavourite: favourite =>
+      dispatch(FavouriteActions.setFavourite(favourite))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(RecipePage));

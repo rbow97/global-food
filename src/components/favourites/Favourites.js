@@ -7,17 +7,22 @@ import Plate from "../icons/plate/Plate";
 import Clock from "../icons/clock/Clock";
 
 const Favourites = props => {
+  console.log(props.favouritesInfo);
   let renderFavouritesInfo = null;
   renderFavouritesInfo = props.favouritesInfo.map(favouriteInfo => (
-    <div className="favourite-card">
+    <div key={favouriteInfo.id} className="favourite-card">
       <img
         className="favourite-card-image"
         src={` https://spoonacular.com/recipeImages/${favouriteInfo.image}`}
         alt={favouriteInfo.title}
       />
-
       <div className="favourite-card-text">
-        <Link to={`/recipes/${favouriteInfo.id}`}>
+        <Link
+          to={{
+            state: { recipe: favouriteInfo },
+            pathname: `/recipes/${favouriteInfo.id}`
+          }}
+        >
           <p className="favourite-card-title">{favouriteInfo.title}</p>
         </Link>
         <div className="favourite-card-info">

@@ -5,14 +5,27 @@ const initState = {
 };
 
 const setFavouritesHelper = (state, favouriteObject) => {
-  const newFavouritesArray = [...state.favourites];
+  let newFavouritesArray = [...state.favourites];
   // Check for duplicates
-  if (newFavouritesArray.includes(favouriteObject)) {
-    console.log("duplicate favourite");
+  let check = false;
+  newFavouritesArray.forEach(el => {
+    if (el.id === favouriteObject.id) {
+      return (check = true);
+    }
+  });
+
+  if (check) {
+    newFavouritesArray = newFavouritesArray.filter(
+      el => el.id !== favouriteObject.id
+    );
   } else {
     // Add new if not a duplicate
     newFavouritesArray.push(favouriteObject);
   }
+
+  // Set local storage
+  localStorage.setItem("favourites", JSON.stringify(newFavouritesArray));
+
   // Return new state
   return newFavouritesArray;
 };

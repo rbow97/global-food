@@ -1,5 +1,3 @@
-import React from "react";
-
 const countArray = arr => {
   let total = 0;
   arr.forEach(el => {

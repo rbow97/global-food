@@ -13,8 +13,9 @@
 }
 
 .favourites-container-title {
-  text-align: center;
-  color: #828282;
+  font-family: "shrikhand", sans-serif;
+  text-align: left;
+  color: #ff6343;
   font-size: 20px;
   font-weight: 600;
   text-transform: uppercase;

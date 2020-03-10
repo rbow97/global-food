@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import "./FavouritesCard.css";
 import TruncateString from "../../helpers/TruncateString";
 import Star from "../star/Star";
-import * as favouriteActions from "../../actions/FavouriteActions";
 
 const FavouritesCard = props => {
   let renderFavouriteName = null;
