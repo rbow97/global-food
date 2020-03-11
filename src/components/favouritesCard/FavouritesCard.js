@@ -1,18 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import "./FavouritesCard.css";
 import TruncateString from "../../helpers/TruncateString";
 import Star from "../star/Star";
 
 const FavouritesCard = props => {
   let renderFavouriteName = null;
-  // console.log(props.favourites);
   if (props.favourites) {
     renderFavouriteName = props.favourites.map(favourite => (
-      <li key={favourite.id}>
+      <Link
+        className="favourites-card-link"
+        key={favourite.id}
+        to={{ pathname: `/recipes/${favourite.id}` }}
+      >
         <Star />
-        {TruncateString(favourite.title, 20)}
-      </li>
+        <p className="favourites-card-text">
+          {TruncateString(favourite.title, 25)}
+        </p>
+      </Link>
     ));
   }
 

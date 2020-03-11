@@ -9,20 +9,6 @@ import "./SearchResult.css";
 import * as SearchActions from "../../actions/SearchActions";
 
 const SearchResult = props => {
-  // const getFavouritesFunction = title => {
-  //   const newFavourites = [...favourites];
-  //   // Check for duplicates
-  //   if (newFavourites.includes(title)) {
-  //     console.log("error");
-  //   } else {
-  //     // Add new if not a duplicate
-  //     newFavourites.push(title);
-  //   }
-  //   // Set state
-  //   setFavourites(newFavourites);
-  //   console.log(favourites);
-  // };
-
   let { query } = useParams();
   useEffect(() => {
     getResults();
@@ -38,11 +24,6 @@ const SearchResult = props => {
       <RecipeCard key={recipe.id} recipe={recipe} />
     ));
   }
-
-  // let renderFavourites = null;
-  // renderFavourites = favourites.map(favourite => (
-  //   <FavouritesCard key={favourite} favouriteProp={favourite} />
-  // ));
 
   return (
     <Fragment>

@@ -182,7 +182,7 @@ const RecipePageInfo = ({ info }) => {
           <div className="recipe-page-message">
             {countArray(Object.values(ingredientsLog)) ===
             info.data.extendedIngredients.length ? (
-              <span>- Enjoy your Food!</span>
+              <span>- Prepped!</span>
             ) : null}
             {countArray(Object.values(ingredientsLog)) > 0 ? (
               <button

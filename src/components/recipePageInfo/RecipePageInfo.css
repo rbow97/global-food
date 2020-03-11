@@ -48,10 +48,6 @@
   transition: all 0.2s ease-out;
 }
 
-.recipe-page-message-button:hover {
-  transform: scale(1.2);
-}
-
 .method-list-item,
 .ingredients-list-item {
   position: relative;

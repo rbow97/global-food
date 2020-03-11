@@ -2,6 +2,7 @@ import React from "react";
 import "./RecipeCard.css";
 import "../icons/emptyStar/EmptyStar.css";
 import checkDuplicateFavourite from "../../helpers/CheckDuplicateFavourite";
+import Star from "../star/Star";
 import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
@@ -10,25 +11,6 @@ import { connect } from "react-redux";
 import * as favouriteActions from "../../actions/FavouriteActions";
 
 const RecipeCard = props => {
-  // const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-
-  // const getInfoFunction = async id => {
-  //   const response = await axios.get(
-  //     `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${APP_KEYrose}`
-  //   );
-
-  //   setInfo(response);
-  //   console.log(response);
-  // };
-
-  // useEffect(() => {
-  // getInfoFunction(id);
-  // }, []);
-
-  // const getTitleFunction = () => {
-  //   getFavourites(title);
-  // };
-
   const saveRecipeAsFavourite = recipe => {
     const check = checkDuplicateFavourite(recipe);
 
@@ -40,6 +22,34 @@ const RecipeCard = props => {
       props.saveFavourite(recipe);
     }
   };
+
+  let favouriteButton = (
+    <button
+      onClick={() => saveRecipeAsFavourite(props.recipe)}
+      className="result-card-favourite-unsaved"
+    >
+      <p>Favourite</p>
+      <EmptyStar />
+    </button>
+  );
+
+  if (props.favourites) {
+    props.favourites.forEach(favourite => {
+      const value = favourite.id;
+      const favouriteString = value.toString();
+      if (favouriteString == props.recipe.id) {
+        return (favouriteButton = (
+          <button
+            onClick={() => saveRecipeAsFavourite(props.recipe)}
+            className="result-card-favourite-saved"
+          >
+            <p>Favourite</p>
+            <Star />
+          </button>
+        ));
+      }
+    });
+  }
 
   return (
     <div className="result-card">
@@ -60,7 +70,8 @@ const RecipeCard = props => {
           <Clock /> Ready in {props.recipe.readyInMinutes} minutes
         </div>
       </div>
-      <div className="result-card-favourite">
+      {favouriteButton}
+      {/* <div className="result-card-favourite">
         <button
           className="result-card-favourite-contents"
           onClick={() => saveRecipeAsFavourite(props.recipe)}
@@ -68,7 +79,7 @@ const RecipeCard = props => {
           <p>Favourite</p>
           <EmptyStar />
         </button>
-      </div>
+      </div> */}
       <Link to={`/recipes/${props.recipe.id}`}>
         <img
           className="result-card-image"

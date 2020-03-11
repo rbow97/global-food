@@ -4,6 +4,23 @@
   display: flex;
 }
 
-.favourites-selection li {
+.favourites-card-text {
+  margin: 0 0 0 0.2rem;
+}
+
+.favourites-card-link {
   list-style: none;
+  cursor: pointer;
+  margin: 0 0 0.5rem 0;
+  text-decoration: none;
+  color: black;
+  display: flex;
+}
+
+.favourites-card-link:hover #Star-1 {
+  animation: buttonMove 0.5s ease-out;
+}
+
+.favourites-card-link:hover .star-icon {
+  animation: buttonSaved 0.5s ease-out;
 }

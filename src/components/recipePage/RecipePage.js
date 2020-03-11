@@ -20,10 +20,6 @@ const RecipePage = props => {
   const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
-  // let [methodCheckListTotal, setMethodCheckListTotal] = useState(0);
-  // let [ingredientsCheckListTotal, setIngredientsCheckListTotal] = useState(0);
-  // const [ingredientsLog, setIngredientsLog] = useState({});
-  // const [methodLog, setMethodLog] = useState({});
 
   // {recipeId: {
   //   ingredients: {
@@ -38,19 +34,7 @@ const RecipePage = props => {
 
   useEffect(() => {
     getInfoFunction();
-    // getLocalStorage();
   }, []);
-
-  // const getLocalStorage = () => {
-  //   const localObject = JSON.parse(localStorage.getItem("recipeStatus"));
-
-  //   if (localObject) {
-  //     if (localObject[props.match.params.id]) {
-  //       setMethodLog(localObject[props.match.params.id].method);
-  //       setIngredientsLog(localObject[props.match.params.id].ingredients);
-  //     }
-  //   }
-  // };
 
   const getInfoFunction = async () => {
     const response = await axios.get(
@@ -58,65 +42,9 @@ const RecipePage = props => {
     );
     setInfo(response);
     setLoading(false);
-    // console.log(response);
   };
 
-  // const handleMethodCheckboxCount = e => {
-  //   if (e.target.checked) {
-  //     setMethodCheckListTotal(methodCheckListTotal + 1);
-  //   } else if (!e.target.checked) {
-  //     setMethodCheckListTotal(methodCheckListTotal - 1);
-  //   }
-  // };
-  // const handleIngredientsCheckboxCount = e => {
-  //   if (e.target.checked) {
-  //     setIngredientsCheckListTotal(ingredientsCheckListTotal + 1);
-  //   } else if (!e.target.checked) {
-  //     setIngredientsCheckListTotal(ingredientsCheckListTotal - 1);
-  //   }
-  // };
-
-  // const handleMethodLog = e => {
-  //   let map = { ...methodLog };
-  //   map[e.target.id] = e.target.checked;
-  //   setMethodLog(map);
-  //   updateLocalStorage(map, ingredientsLog);
-  // };
-
-  // const handleIngredientsLog = e => {
-  //   let map = { ...ingredientsLog };
-  //   map[e.target.id] = e.target.checked;
-  //   setIngredientsLog(map);
-  //   updateLocalStorage(methodLog, map);
-  // };
-
-  // const clearMethodHandler = () => {
-  //   setMethodLog({});
-  //   updateLocalStorage({}, ingredientsLog);
-  // };
-
-  // const updateLocalStorage = (method, ingredients) => {
-  //   let localObject = {};
-  //   let localObjectRaw = JSON.parse(localStorage.getItem("recipeStatus"));
-
-  //   if (localObjectRaw === null) {
-  //     localObject = {};
-  //   } else {
-  //     localObject = localObjectRaw;
-  //   }
-
-  //   console.log(method);
-  //   localObject[props.match.params.id] = {
-  //     method: method,
-  //     ingredients: ingredients
-  //   };
-
-  //   localStorage.setItem("recipeStatus", JSON.stringify(localObject));
-  // };
-
   let recipeInfo = null;
-  // let steps;
-  // let ingredients;
   let vegetarian;
   if (info.data) {
     if (!info.data.vegetarian) {
@@ -134,57 +62,6 @@ const RecipePage = props => {
         </div>
       );
     }
-    // if (info.data.analyzedInstructions[0].steps) {
-    //   steps = info.data.analyzedInstructions[0].steps.map(step => {
-    //     const checked = methodLog[step.number];
-
-    //     return (
-    //       <div key={step.number} className="method-list-items">
-    //         <label className="checkbox-label">
-    //           <input
-    //             defaultChecked={checked}
-    //             id={step.number}
-    //             type="checkbox"
-    //             onClick={e => {
-    //               handleMethodCheckboxCount(e);
-    //               handleMethodLog(e);
-    //             }}
-    //           />
-    //           <div className="checkbox-custom"></div>
-    //           <p className="method-list-item" key={step.number}>
-    //             <b>{step.number}</b> - {step.step}
-    //           </p>
-    //         </label>
-    //       </div>
-    //     );
-    //   });
-    // }
-    // if (info.data.extendedIngredients) {
-    // ingredients = info.data.extendedIngredients.map(ingredients => {
-    //     const checked = ingredientsLog[ingredients.original];
-
-    //     return (
-    //       <div key={ingredients.original} className="ingredients-list-items">
-    //         <label className="checkbox-label">
-    //           <input
-    //             className="checkbox"
-    //             defaultChecked={checked}
-    //             id={ingredients.original}
-    //             type="checkbox"
-    //             onClick={e => {
-    //               handleIngredientsCheckboxCount(e);
-    //               handleIngredientsLog(e);
-    //             }}
-    //           />
-    //           <div className="checkbox-custom"></div>
-    //           <p className="ingredients-list-item" key={ingredients.original}>
-    //             {ingredients.original}
-    //           </p>
-    //         </label>
-    //       </div>
-    //     );
-    //   });
-    // }
 
     let renderNutrients = null;
     const nutrientsArr = info.data.nutrition.nutrients;
@@ -239,13 +116,7 @@ const RecipePage = props => {
     }
 
     const saveRecipeAsFavourite = recipe => {
-      // const check = CheckDuplicateFavourite(recipe);
-
       props.saveFavourite(recipe);
-      // localStorage.setItem(
-      //   "favourites",
-      //   JSON.stringify([...props.favourites, recipe])
-      // );
     };
 
     let favouriteButton = (
@@ -257,8 +128,6 @@ const RecipePage = props => {
         <EmptyStar />
       </button>
     );
-
-    // console.log(props.location);
 
     if (props.favourites) {
       props.favourites.forEach(favourite => {
@@ -303,15 +172,7 @@ const RecipePage = props => {
             {TruncateString(info.data.summary.replace(/<[^>]*>/g, ""), 1000)}
           </p>
         </div>
-        <RecipePageInfo
-          info={info}
-          // methodLog={methodLog}
-          // ingredientsLog={ingredientsLog}
-          // steps={steps}
-          // ingredients={ingredients}
-          // clearMethod={clearMethodHandler}
-          // clearIngredients={clearIngredientsHandler}
-        />
+        <RecipePageInfo info={info} />
       </div>
     );
   }

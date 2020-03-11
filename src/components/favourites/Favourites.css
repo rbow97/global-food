@@ -79,14 +79,6 @@
   transition: all 0.2s ease-in;
 }
 
-.clear-button-wrapper:hover {
-  transform: scale(1.2);
-}
-
-.clear-button-wrapper:hover #cross {
-  fill: #ff6343;
-}
-
 .clear-button-wrapper:focus {
   outline: none;
 }
