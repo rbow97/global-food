@@ -30,7 +30,7 @@ export const fetchSearch = search => {
     dispatch(searching(true));
     dispatch(dispatchQuery(search));
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/search?query=${search}&number=2&apiKey=${APP_KEYjoe}`
+      `https://api.spoonacular.com/recipes/search?query=${search}&number=2&apiKey=${APP_KEYrose}`
     );
     // dispatch({
     //   type: FETCH_SEARCH,

@@ -2,14 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import TruncateString from "../../helpers/TruncateString";
+import * as FavouriteActions from "../../actions/FavouriteActions";
 
 import "./Favourites.css";
 import Plate from "../icons/plate/Plate";
 import Clock from "../icons/clock/Clock";
-import ClearButton from "../icons/clearButton/ClearButton";
+import RemoveButton from "../icons/removeButton/RemoveButton";
 
 const Favourites = props => {
-  console.log(props.favouritesInfo);
+  const removeRecipeAsFavourite = recipe => {
+    props.removeFavourite(recipe);
+  };
+
   let renderFavouritesInfo = null;
   renderFavouritesInfo = props.favouritesInfo.map(favouriteInfo => (
     <div key={favouriteInfo.id} className="favourite-card">
@@ -37,8 +41,11 @@ const Favourites = props => {
           <Clock /> Ready in {favouriteInfo.readyInMinutes} minutes
         </div>
       </div>
-      <button className="clear-button-wrapper">
-        <ClearButton />
+      <button
+        onClick={() => removeRecipeAsFavourite(favouriteInfo)}
+        className="clear-button-wrapper"
+      >
+        <RemoveButton />
       </button>
     </div>
   ));
@@ -55,4 +62,11 @@ const mapStateToProps = state => ({
   favouritesInfo: state.FavouriteReducer.favourites
 });
 
-export default connect(mapStateToProps)(Favourites);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeFavourite: favourite =>
+      dispatch(FavouriteActions.setFavourite(favourite))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);
