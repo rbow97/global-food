@@ -1,0 +1,153 @@
+.discover-container {
+  /* margin: 2rem 3rem 0 3rem; */
+  flex-grow: 1;
+  /* padding: 0 3rem; */
+  background-color: white;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-family: "roboto mono", sans-serif;
+  font-size: 12px;
+  font-weight: lighter;
+  display: flex;
+  flex-direction: column;
+}
+
+.discover-header {
+  height: 40vh;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #fbf1f1;
+  align-items: center;
+  /* border-bottom: 1px solid grey; */
+  margin: 0 0 2rem 0;
+}
+
+.discover-header-text {
+  margin: 0 0 2rem 0;
+}
+
+.discover-title {
+  font-weight: bold;
+  /* font-family: "Shrikhand", sans-serif; */
+  text-align: center;
+  /* color: #c4c4c4; */
+  font-size: 25px;
+  letter-spacing: 1px;
+  margin: 0 0 1.5rem 0;
+}
+
+.discover-section-1 {
+  display: flex;
+}
+
+.discover-search-by-ingredients-section {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: stretch;
+  /* color: grey; */
+  /* background-color: #fbf1f1; */
+}
+
+.discover-search-by-ingredients-title {
+  align-self: center;
+}
+
+.discover-search-bar {
+  margin: 1rem 0;
+  width: 100%;
+  height: 40px;
+  font-family: "roboto mono", sans-serif;
+  text-align: center;
+  color: #000000;
+  font-size: 13px;
+  border-radius: 20px;
+  border: none;
+}
+
+.discover-search-bar:focus {
+  outline: none;
+}
+
+.discover-search-by-ingredients-title {
+  font-size: 15px;
+  order: 0;
+}
+
+.discover-search-by-ingredients-subtitle {
+  order: 2;
+}
+
+.discover-search-by-ingredients-searchbar {
+  order: 1;
+}
+
+.discover-popular-vegetarian {
+  margin: 2rem;
+  /* color: grey; */
+  background-color: white;
+  width: 624px;
+  height: 80%;
+  /* background-color: #fbf1f1; */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.discover-popular-vegetarian-images {
+  display: flex;
+  width: 100%;
+}
+
+.discover-popular-vegetarian-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  background-color: #fbf1f1;
+  clip-path: polygon(7% 5%, 97% 3%, 95% 99%, 6% 96%);
+}
+
+.discover-popular-vegetarian h2 {
+  margin: 1rem;
+  text-align: center;
+}
+
+.popular-vegetarian-item {
+  transition: 0.3s ease-out;
+  position: relative;
+}
+
+.popular-vegetarian-title {
+  position: absolute;
+  bottom: 2rem;
+  z-index: 1;
+  left: 1.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  opacity: 0.9;
+  border-radius: 3px;
+}
+
+.discover-section-2 {
+  margin: 2rem 0;
+  height: 45vh;
+  background-color: #fbf1f1;
+}
+
+.discover-section-3 {
+  display: flex;
+  height: 45vh;
+  margin: 0 0 2rem 0;
+}
+
+.discover-search-by-cuisine {
+  width: 30%;
+  margin: 0 2rem 0 0;
+  background: #fbf1f1;
+}
+
+.discover-popular-indian {
+  background-color: #fbf1f1;
+  flex-grow: 1;
+}

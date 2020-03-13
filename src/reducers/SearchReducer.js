@@ -1,9 +1,15 @@
-import { FETCH_SEARCH, IS_SEARCHING, SET_QUERY } from "../actions/types";
+import {
+  FETCH_SEARCH,
+  IS_SEARCHING,
+  SET_QUERY,
+  SET_VEGETARIAN
+} from "../actions/types";
 
 const initState = {
   searchValue: [],
   searching: false,
-  query: ""
+  query: "",
+  vegetarian: []
 };
 
 const SearchReducer = (state = initState, action) => {
@@ -22,6 +28,11 @@ const SearchReducer = (state = initState, action) => {
       return {
         ...state,
         query: action.payload
+      };
+    case SET_VEGETARIAN:
+      return {
+        ...state,
+        vegetarian: action.payload
       };
     default:
       return state;

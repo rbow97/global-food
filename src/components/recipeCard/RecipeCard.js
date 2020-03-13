@@ -51,6 +51,30 @@ const RecipeCard = props => {
     });
   }
 
+  let recipeImage = null;
+
+  if (props.type === "normal") {
+    recipeImage = (
+      <Link to={`/recipes/${props.recipe.id}`}>
+        <img
+          className="result-card-image"
+          src={` https://spoonacular.com/recipeImages/${props.recipe.image}`}
+          alt={props.recipe.title}
+        />
+      </Link>
+    );
+  } else if (props.type === "discover") {
+    recipeImage = (
+      <Link to={`/recipes/${props.recipe.id}`}>
+        <img
+          className="result-card-image"
+          src={`${props.recipe.image}`}
+          alt={props.recipe.title}
+        />
+      </Link>
+    );
+  }
+
   return (
     <div className="result-card">
       <div className="result-card-text">
@@ -80,13 +104,14 @@ const RecipeCard = props => {
           <EmptyStar />
         </button>
       </div> */}
-      <Link to={`/recipes/${props.recipe.id}`}>
+      {/* <Link to={`/recipes/${props.recipe.id}`}>
         <img
           className="result-card-image"
           src={` https://spoonacular.com/recipeImages/${props.recipe.image}`}
           alt={props.recipe.title}
         />
-      </Link>
+      </Link> */}
+      {recipeImage}
     </div>
   );
 };

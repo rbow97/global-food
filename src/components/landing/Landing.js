@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import "./Landing.css";
 import Picnic from "../../images/picnic.png";
-import { connect } from "react-redux";
-import { Redirect, withRouter } from "react-router";
-import * as SearchActions from "../../actions/SearchActions";
+import { withRouter } from "react-router";
 
 const Landing = props => {
   const [search, setSearch] = useState("");
-  // const [redirect, setRedirect] = useState(false);
+
+  const type = "normal";
 
   const getSearchFunction = e => {
     e.preventDefault();
-    props.history.push(`/searchresults/${search}`);
+    props.history.push(`/searchresults/${search}/${type}`);
   };
 
   return (
     <div className="home-main-section">
+      <div className="background-image"></div>
       <div className="image-wrapper">
         <img className="picnic-image" src={Picnic} alt="Picnic" />
       </div>
@@ -36,16 +36,10 @@ const Landing = props => {
 
       <div className="subtitle-2">
         <p>Browse thousands of recipes.</p>
-        <p>Favourite, edit and share.</p>
+        <p>Explore food from around the world.</p>
       </div>
     </div>
   );
 };
 
-const mapDispatchToState = dispatch => {
-  return {
-    saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue))
-  };
-};
-
-export default connect(null, mapDispatchToState)(withRouter(Landing));
+export default withRouter(Landing);

@@ -12,6 +12,11 @@
   z-index: 99;
 }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
 .nav-logo {
   display: flex;
   align-items: center;
@@ -34,6 +39,7 @@
   font-weight: lighter;
   font-size: 25px;
   padding: 10px 0;
+  margin-right: 1.5rem;
 }
 
 .nav-title a {
@@ -57,7 +63,7 @@
   padding: 0 2.5rem;
 }
 
-.search-form {
+/* .search-form {
   border: 1px #e5e5e5 solid;
   height: 30px;
   display: flex;
@@ -88,7 +94,7 @@
   height: 100%;
   font-family: "roboto mono", sans-serif;
   text-decoration: none;
-}
+} */
 
 @media only screen and (max-width: 375px) {
   .nav {

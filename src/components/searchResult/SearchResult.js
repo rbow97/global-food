@@ -9,19 +9,24 @@ import "./SearchResult.css";
 import * as SearchActions from "../../actions/SearchActions";
 
 const SearchResult = props => {
-  let { query } = useParams();
+  let { query, type } = useParams();
+
   useEffect(() => {
     getResults();
   }, [query]);
 
   const getResults = () => {
-    props.saveSearch(query);
+    if (type === "discover") {
+      props.saveSearchDiscover(query);
+    } else if (type === "normal") {
+      props.saveSearch(query);
+    }
   };
 
   let renderRecipes = null;
   if (props.recipes) {
     renderRecipes = props.recipes.map(recipe => (
-      <RecipeCard key={recipe.id} recipe={recipe} />
+      <RecipeCard key={recipe.id} recipe={recipe} type={type} />
     ));
   }
 
@@ -49,7 +54,9 @@ const SearchResult = props => {
 
 const mapDispatchToState = dispatch => {
   return {
-    saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue))
+    saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue)),
+    saveSearchDiscover: searchValue =>
+      dispatch(SearchActions.fetchSearchByIngredients(searchValue))
   };
 };
 

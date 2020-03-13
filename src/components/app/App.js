@@ -2,10 +2,10 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import * as SearchActions from "../../actions/SearchActions";
 import * as FavouriteActions from "../../actions/FavouriteActions";
 
 import SearchResult from "../searchResult/SearchResult";
+import Discover from "../discover/Discover";
 import Favourites from "../favourites/Favourites";
 import Landing from "../landing/Landing";
 import RecipePage from "../recipePage/RecipePage";
@@ -29,7 +29,8 @@ const App = props => {
         <Nav />
         <Switch>
           <Route path="/" exact component={Landing} />
-          <Route path="/searchresults/:query" component={SearchResult} />
+          <Route path="/searchresults/:query/:type" component={SearchResult} />
+          <Route path="/discover" component={Discover} />
           <Route path="/favourites" component={Favourites} />
           <Route path="/recipes/:id" component={RecipePage} />
         </Switch>
@@ -40,7 +41,6 @@ const App = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue)),
     loadLocalFavourites: favouritesArray =>
       dispatch(FavouriteActions.loadLocalFavourites(favouritesArray))
   };

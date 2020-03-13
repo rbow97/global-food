@@ -9,8 +9,8 @@ body {
   background-color: #dcf0f7;
   max-width: 100vw;
   min-height: 100vh;
-  /* display: flex;
-  flex-direction: column; */
+  position: relative;
+  /* overflow: hidden; */
 }
 
 #root {
@@ -22,5 +22,5 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  /* position: relative; */
 }

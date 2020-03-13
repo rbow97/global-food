@@ -1,6 +1,6 @@
 .favourites-container {
   margin: 2rem 3rem 0 3rem;
-  min-height: 100vh;
+  flex-grow: 1;
   padding: 3rem;
   background-color: white;
   border-radius: 0.5rem 0.5rem 0 0;
@@ -50,6 +50,7 @@
   letter-spacing: 1px;
   font-weight: bold;
   font-size: 13px;
+  align-self: flex-start;
 }
 
 .favourite-card-text a {
