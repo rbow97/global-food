@@ -2,52 +2,21 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import TruncateString from "../../helpers/TruncateString";
 import "./Discover.css";
+import DiscoverSearchBar from "../discoverSearchBar/DiscoverSearchBar";
+import DiscoverCarousel from "../discoverCarousel/DiscoverCarousel";
 import * as SearchActions from "../../actions/SearchActions";
 
 const Discover = props => {
-  const [search, setSearch] = useState("");
-  const [x, setX] = useState(0);
   const placeholder = "pasta, brocolli";
-  const type = "discover";
+  const discover = "discover";
+  const cuisine = "cuisine";
+  let type;
 
   useEffect(() => {
     props.callVegetarian();
+    props.callVegan();
+    props.callPescetarian();
   }, []);
-
-  const getSearchFunction = e => {
-    e.preventDefault();
-    props.history.push(`/searchresults/${search}/${type}`);
-  };
-
-  let renderVegetarianImages = null;
-  renderVegetarianImages = props.popularVegetarian.map(
-    (popVegetarian, index) => {
-      return (
-        <div
-          className="popular-vegetarian-item"
-          style={{ transform: `translateX(${x}%)` }}
-        >
-          <img
-            key={popVegetarian.id}
-            className={`popular-vegetarian-image-${index}`}
-            src={popVegetarian.image}
-            alt={popVegetarian.title}
-          ></img>
-          <p className="popular-vegetarian-title">
-            {TruncateString(popVegetarian.title, 30)}
-          </p>
-        </div>
-      );
-    }
-  );
-
-  //carousel
-  const goLeft = () => {
-    x === 0 ? setX(-100 * (props.popularVegetarian.length - 1)) : setX(x + 200);
-  };
-  const goRight = () => {
-    x === -100 * (props.popularVegetarian.length - 1) ? setX(0) : setX(x - 200);
-  };
 
   return (
     <div className="discover-container">
@@ -66,49 +35,43 @@ const Discover = props => {
           <p className="discover-search-by-ingredients-subtitle">
             Find recipes based on the ingredients you have in your home.
           </p>
-          <div className="discover-ssearch-by-ingredients-earchbar">
-            <form onSubmit={getSearchFunction}>
-              <input
-                className="discover-search-bar"
-                value={search}
-                onChange={e => {
-                  setSearch(e.target.value);
-                }}
-                type="text"
-                placeholder={placeholder}
-              />
-            </form>
-          </div>
+          <DiscoverSearchBar placeholder={placeholder} type={discover} />
         </div>
       </div>
       <div className="discover-section-1">
         <div className="discover-popular-vegetarian-wrapper">
-          <div className="discover-popular-vegetarian">
-            <div className="discover-popular-vegetarian-text">
-              <h2>Popular Vegetarian Dishes</h2>
-            </div>
-            <div id="prevButton" onClick={goLeft}>
-              Previous
-            </div>
-            <div id="nextButton" onClick={goRight}>
-              Next
-            </div>
-            <div className="discover-popular-vegetarian-images">
-              {renderVegetarianImages}
-            </div>
+          <div className="discover-popular-vegetarian discover-popular">
+            <p className="discover-popular-vegetarian-text">
+              Popular Vegetarian Dishes
+            </p>
+            <DiscoverCarousel type={"vegetarian"} />
+          </div>
+        </div>
+        <div className="discover-search-by-cuisine-wrapper">
+          <div className="discover-search-by-cuisine">
+            <p className="discover-search-by-cuisine-title">
+              Browse by Cuisine
+            </p>
+            <DiscoverSearchBar placeholder={"Chinese"} type={cuisine} />
+            <p className="discover-search-by-cuisine-subtitle">
+              Find your favourite recipes from cultures around the world, and
+              maybe discover some new ones!
+            </p>
           </div>
         </div>
       </div>
 
       <div className="discover-section-2">
-        <h2>Popular Greek Dishes</h2>
-      </div>
-      <div className="discover-section-3">
-        <div className="discover-search-by-cuisine">
-          <h2>Browse by Cuisine</h2>
+        <div className="discover-popular-vegan discover-popular">
+          <p className="discover-popular-vegan-text">Popular Vegan Dishes</p>
+          <DiscoverCarousel type={"vegan"} />
         </div>
-        <div className="discover-popular-indian">
-          <h2>Popular Indian Dishes</h2>
+
+        <div className="discover-popular-pescetarian discover-popular">
+          <p className="discover-popular-pescetarian-text">
+            Popular Pescetarian Dishes
+          </p>
+          <DiscoverCarousel type={"pescetarian"} />
         </div>
       </div>
     </div>
@@ -121,7 +84,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    callVegetarian: () => dispatch(SearchActions.fetchSearchVegetarian())
+    callVegetarian: () => dispatch(SearchActions.fetchSearchVegetarian()),
+    callVegan: () => dispatch(SearchActions.fetchSearchVegan()),
+    callPescetarian: () => dispatch(SearchActions.fetchSearchPescetarian())
   };
 };
 

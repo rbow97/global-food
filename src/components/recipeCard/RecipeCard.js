@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import * as favouriteActions from "../../actions/FavouriteActions";
 
 const RecipeCard = props => {
+  // Adding functionality to 'favourite' button
   const saveRecipeAsFavourite = recipe => {
     const check = checkDuplicateFavourite(recipe);
 
@@ -37,6 +38,7 @@ const RecipeCard = props => {
     props.favourites.forEach(favourite => {
       const value = favourite.id;
       const favouriteString = value.toString();
+
       if (favouriteString == props.recipe.id) {
         return (favouriteButton = (
           <button
@@ -53,7 +55,7 @@ const RecipeCard = props => {
 
   let recipeImage = null;
 
-  if (props.type === "normal") {
+  if (props.type === "normal" || props.type === "cuisine") {
     recipeImage = (
       <Link to={`/recipes/${props.recipe.id}`}>
         <img

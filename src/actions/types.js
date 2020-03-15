@@ -4,3 +4,6 @@ export const SET_QUERY = "SET_QUERY";
 export const SET_FAVOURITE = "SET_FAVOURITE";
 export const LOAD_LOCAL_FAVOURITES = "LOAD_LOCAL_FAVOURITES";
 export const SET_VEGETARIAN = "SET_VEGETARIAN";
+export const SET_CUISINE = "SET_CUISINE";
+export const SET_VEGAN = "SET_VEGAN";
+export const SET_PESCETARIAN = "SET_PESCETARIAN";

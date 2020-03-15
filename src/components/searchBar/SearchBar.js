@@ -26,9 +26,6 @@ const SearchBar = props => {
             setSearch(e.target.value);
           }}
         />
-        {/* <a className="search-button" href="#">
-          Search
-        </a> */}
       </form>
     </div>
   );

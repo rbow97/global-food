@@ -42,6 +42,7 @@ const RecipePage = props => {
     );
     setInfo(response);
     setLoading(false);
+    console.log(response);
   };
 
   let recipeInfo = null;
@@ -129,14 +130,15 @@ const RecipePage = props => {
       </button>
     );
 
+    // Adding functionality to 'favourite' button
     if (props.favourites) {
       props.favourites.forEach(favourite => {
         const value = favourite.id;
         const favouriteString = value.toString();
-        // console.log(favouriteString);
         if (favouriteString == props.match.params.id) {
           return (favouriteButton = (
             <button
+              // from Favourites component
               onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
               className="recipe-page-favourite-saved"
             >

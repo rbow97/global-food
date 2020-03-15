@@ -99,30 +99,32 @@ const RecipePageInfo = ({ info }) => {
     localStorage.setItem("recipeStatus", JSON.stringify(localObject));
   };
 
-  if (info.data.analyzedInstructions[0].steps) {
-    steps = info.data.analyzedInstructions[0].steps.map(step => {
-      const checked = methodLog[step.number];
+  if (info.data.analyzedInstructions[0]) {
+    if (info.data.analyzedInstructions[0].steps) {
+      steps = info.data.analyzedInstructions[0].steps.map(step => {
+        const checked = methodLog[step.number];
 
-      return (
-        <div key={step.number} className="method-list-items">
-          <label className="checkbox-label">
-            <input
-              checked={checked || false}
-              id={step.number}
-              type="checkbox"
-              onChange={e => {
-                handleMethodCheckboxCount(e);
-                handleMethodLog(e);
-              }}
-            />
-            <div className="checkbox-custom"></div>
-            <p className="method-list-item" key={step.number}>
-              <b>{step.number}</b> - {step.step}
-            </p>
-          </label>
-        </div>
-      );
-    });
+        return (
+          <div key={step.number} className="method-list-items">
+            <label className="checkbox-label">
+              <input
+                checked={checked || false}
+                id={step.number}
+                type="checkbox"
+                onChange={e => {
+                  handleMethodCheckboxCount(e);
+                  handleMethodLog(e);
+                }}
+              />
+              <div className="checkbox-custom"></div>
+              <p className="method-list-item" key={step.number}>
+                <b>{step.number}</b> - {step.step}
+              </p>
+            </label>
+          </div>
+        );
+      });
+    }
   }
 
   if (info.data.extendedIngredients) {
@@ -159,10 +161,14 @@ const RecipePageInfo = ({ info }) => {
           <List />
           <span className="recipe-page-instructions-title">Method</span>
           <div className="recipe-page-message">
-            {countArray(Object.values(methodLog)) ===
-            info.data.analyzedInstructions[0].steps.length ? (
-              <span>- Enjoy your Food!</span>
-            ) : null}
+            {info.data.analyzedInstructions.length > 0 ? (
+              countArray(Object.values(methodLog)) ===
+              info.data.analyzedInstructions[0].steps.length ? (
+                <span>- Enjoy your Food!</span>
+              ) : null
+            ) : (
+              "No method provided"
+            )}
             {countArray(Object.values(methodLog)) > 0 ? (
               <button
                 onClick={() => clearMethodHandler()}

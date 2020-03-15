@@ -15,10 +15,15 @@ const SearchResult = props => {
     getResults();
   }, [query]);
 
+  console.log(type);
+
   const getResults = () => {
     if (type === "discover") {
       props.saveSearchDiscover(query);
     } else if (type === "normal") {
+      props.saveSearch(query);
+    } else if (type === "cuisine") {
+      props.saveSearchCuisine(query);
       props.saveSearch(query);
     }
   };
@@ -56,7 +61,9 @@ const mapDispatchToState = dispatch => {
   return {
     saveSearch: searchValue => dispatch(SearchActions.fetchSearch(searchValue)),
     saveSearchDiscover: searchValue =>
-      dispatch(SearchActions.fetchSearchByIngredients(searchValue))
+      dispatch(SearchActions.fetchSearchByIngredients(searchValue)),
+    saveSearchCuisine: searchValue =>
+      dispatch(SearchActions.fetchSearchCuisine(searchValue))
   };
 };
 
