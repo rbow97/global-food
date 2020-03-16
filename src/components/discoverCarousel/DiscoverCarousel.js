@@ -12,6 +12,7 @@ const DiscoverCarousel = props => {
 
   if (props.type === "vegetarian") {
     renderImages = props.popularVegetarian.map((popVegetarian, index) => {
+      console.log(popVegetarian);
       return (
         <div
           key={popVegetarian.title}
@@ -26,7 +27,10 @@ const DiscoverCarousel = props => {
           ></img>
           <Link
             className="popular-title"
-            to={{ pathname: `/recipes/${popVegetarian.id}` }}
+            to={{
+              state: { recipe: popVegetarian },
+              pathname: `/recipes/${popVegetarian.id}`
+            }}
           >
             {TruncateString(popVegetarian.title, 30)}
           </Link>
@@ -51,7 +55,10 @@ const DiscoverCarousel = props => {
           ></img>
           <Link
             className="popular-title"
-            to={{ pathname: `/recipes/${popVegan.id}` }}
+            to={{
+              state: { recipe: popVegan },
+              pathname: `/recipes/${popVegan.id}`
+            }}
           >
             {TruncateString(popVegan.title, 30)}
           </Link>
@@ -76,7 +83,10 @@ const DiscoverCarousel = props => {
           ></img>
           <Link
             className="popular-title"
-            to={{ pathname: `/recipes/${popPescetarian.id}` }}
+            to={{
+              state: { recipe: popPescetarian },
+              pathname: `/recipes/${popPescetarian.id}`
+            }}
           >
             {TruncateString(popPescetarian.title, 30)}
           </Link>

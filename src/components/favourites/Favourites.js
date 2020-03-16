@@ -14,14 +14,38 @@ const Favourites = props => {
     props.removeFavourite(recipe);
   };
 
+  const imageSelection = favouriteInfo => {
+    let imageType = null;
+    if (favouriteInfo.image.includes("https://")) {
+      imageType = (
+        <img
+          className="favourite-card-image"
+          src={favouriteInfo.image}
+          alt={favouriteInfo.title}
+        />
+      );
+    } else {
+      imageType = (
+        <img
+          className="favourite-card-image"
+          src={` https://spoonacular.com/recipeImages/${favouriteInfo.image}`}
+          alt={favouriteInfo.title}
+        />
+      );
+    }
+    return imageType;
+  };
+
   let renderFavouritesInfo = null;
   renderFavouritesInfo = props.favouritesInfo.map(favouriteInfo => (
     <div key={favouriteInfo.id} className="favourite-card">
-      <img
+      {imageSelection(favouriteInfo)}
+      {/* <img
         className="favourite-card-image"
         src={` https://spoonacular.com/recipeImages/${favouriteInfo.image}`}
+        src={favouriteInfo.image}
         alt={favouriteInfo.title}
-      />
+      /> */}
       <div className="favourite-card-text">
         <Link
           to={{

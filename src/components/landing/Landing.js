@@ -18,21 +18,21 @@ const Landing = props => {
       <div className="background-image"></div>
       <div className="image-wrapper">
         <img className="picnic-image" src={Picnic} alt="Picnic" />
+
+        <p className="subtitle-1">Find your Flavour</p>
+
+        <form onSubmit={getSearchFunction}>
+          <input
+            className="home-search-bar"
+            value={search}
+            onChange={e => {
+              setSearch(e.target.value);
+            }}
+            type="text"
+            placeholder="search..."
+          />
+        </form>
       </div>
-      <div className="subtitle-1">
-        <p>Find your Flavour</p>
-      </div>
-      <form onSubmit={getSearchFunction}>
-        <input
-          className="home-search-bar"
-          value={search}
-          onChange={e => {
-            setSearch(e.target.value);
-          }}
-          type="text"
-          placeholder="search..."
-        />
-      </form>
 
       <div className="subtitle-2">
         <p>Browse thousands of recipes.</p>

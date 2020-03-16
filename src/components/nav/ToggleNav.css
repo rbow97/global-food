@@ -1,0 +1,22 @@
+.toggle-nav-links {
+  left: 0;
+  width: 100%;
+  display: flex;
+  background: white;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  font-size: 15px;
+  position: absolute;
+  z-index: 200;
+}
+
+.toggle-nav-links li {
+  margin: 0.5rem 0;
+  align-self: center;
+}
+
+.toggle-nav-links li a {
+  text-decoration: none;
+  color: #ff6343;
+}

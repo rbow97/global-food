@@ -122,7 +122,8 @@ const RecipePage = props => {
 
     let favouriteButton = (
       <button
-        onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+        // onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+        onClick={() => saveRecipeAsFavourite(info.data)}
         className="recipe-page-favourite-unsaved"
       >
         <p>Favourite</p>
@@ -134,12 +135,15 @@ const RecipePage = props => {
     if (props.favourites) {
       props.favourites.forEach(favourite => {
         const value = favourite.id;
+
         const favouriteString = value.toString();
         if (favouriteString == props.match.params.id) {
+          console.log(info.data);
           return (favouriteButton = (
             <button
               // from Favourites component
-              onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+              // onClick={() => saveRecipeAsFavourite(props.location.state.recipe)}
+              onClick={() => saveRecipeAsFavourite(info.data)}
               className="recipe-page-favourite-saved"
             >
               <p>Favourite</p>

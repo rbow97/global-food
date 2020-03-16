@@ -16,6 +16,7 @@
 }
 
 .recipe-page-image {
+  border-radius: 0.5rem;
   grid-row: 1/4;
   border-radius: 2px;
 }
@@ -233,7 +234,7 @@
   animation: grow 0.5s ease-out forwards;
 }
 
-@media (max-width: 950px) {
+@media only screen and (min-width: 715px) and (max-width: 950px) {
   .recipe-page-header {
     grid-auto-rows: minmax(min-content, max-content);
     align-items: start;
@@ -263,7 +264,7 @@
   }
 }
 
-@media (max-width: 715px) {
+@media only screen and (min-width: 320px) and (max-width: 715px) {
   .recipe-page-header {
     display: flex;
     flex-direction: column;
@@ -282,5 +283,73 @@
   .recipe-page-favourite {
     align-self: flex-start;
     margin: 0 0 1rem 0;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .recipe-page-wrapper {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .recipe-page-header {
+    grid-template-columns: 100px auto;
+    display: grid;
+    grid-template-areas: "image title" "image title" "favourite servings" "veggie time" "nutrition nutrition" "summary summary";
+    padding: 0.5rem;
+    font-size: 10px;
+  }
+
+  .recipe-page-image {
+    grid-area: image;
+    width: 100px;
+    height: auto;
+  }
+
+  .recipe-page-title {
+    margin: 0 0.5rem;
+    padding: 0.5rem 0;
+    grid-area: title;
+    font-size: 10px;
+  }
+
+  .recipe-page-servings {
+    grid-area: servings;
+    justify-self: start;
+  }
+
+  .recipe-page-time {
+    grid-area: time;
+  }
+
+  .recipe-page-summary {
+    grid-area: summary;
+    margin: 0.5rem 1rem;
+  }
+
+  .recipe-page-vegetarian {
+    grid-area: veggie;
+  }
+
+  .recipe-page-favourite-unsaved,
+  .recipe-page-favourite-saved {
+    grid-area: favourite;
+    padding: 0.3rem;
+    font-size: 10px;
+    align-self: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .nutrition-all {
+    grid-area: nutrition;
+  }
+
+  .nutrition-element {
+    min-width: 50px;
+  }
+
+  .nutrition-element p:nth-child(2) {
+    font-size: 10px;
   }
 }

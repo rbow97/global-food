@@ -1,42 +1,60 @@
 import "./Nav.css";
-import React from "react";
+import React, { useState, Fragment } from "react";
 import Logo from "../logo/Logo";
 import { Link, withRouter } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
+import SandwichNav from "./SandwichNav";
+import ToggleNav from "./ToggleNav";
+import Backdrop from "./Backdrop";
 
 const Nav = props => {
-  // const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-  // const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
-
   const placeholder = "Search...";
   const type = "normal";
+  const [links, setLinks] = useState(false);
+
+  const toggleClickHandler = () => {
+    setLinks(!links);
+  };
+
+  let backdrop;
+  let toggleNav;
+
+  if (links) {
+    backdrop = <Backdrop click={() => toggleClickHandler()} />;
+    toggleNav = <ToggleNav />;
+  }
 
   return (
-    <nav className="nav">
-      <div className="nav-left">
-        <div className="nav-logo">
-          <Logo />
-          <h1 className="nav-title">
-            <Link to={`/`}>Global Food</Link>
-          </h1>
+    <Fragment>
+      <nav className="nav">
+        <div className="nav-left">
+          <div className="nav-logo">
+            <Logo />
+            <h1 className="nav-title">
+              <Link to={`/`}>Global Food</Link>
+            </h1>
+          </div>
+          {props.location.pathname === "/" ? null : (
+            <SearchBar placeholder={placeholder} type={type} />
+          )}
         </div>
-        {props.location.pathname === "/" ? null : (
-          <SearchBar placeholder={placeholder} type={type} />
-        )}
-      </div>
+        <SandwichNav click={() => toggleClickHandler()} />
+        {toggleNav}
 
-      <ul className="nav-links">
-        <li>
-          <Link to={`/discover`}>Discover</Link>
-        </li>
-        <li>
-          <Link to={`/favourites`}>Favourites</Link>
-        </li>
-        <li>
-          <a href="#">About</a>
-        </li>
-      </ul>
-    </nav>
+        <ul className="nav-links">
+          <li>
+            <Link to={`/discover`}>Discover</Link>
+          </li>
+          <li>
+            <Link to={`/favourites`}>Favourites</Link>
+          </li>
+          <li>
+            <a href={`/about`}>About</a>
+          </li>
+        </ul>
+      </nav>
+      {backdrop}
+    </Fragment>
   );
 };
 

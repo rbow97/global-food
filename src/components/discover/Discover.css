@@ -12,7 +12,7 @@
 }
 
 .discover-header {
-  height: 40vh;
+  /* height: 40vh; */
   padding: 2rem 0;
   display: flex;
   flex-direction: column;
@@ -66,10 +66,10 @@
   color: #000000;
   font-size: 13px;
   border-radius: 20px;
-  border: none;
+  border: 2px solid #fbf1f1;
 }
 
-.discover-search-bar:focus {
+.discover-searchbar:focus {
   outline: none;
 }
 
@@ -82,11 +82,17 @@
   order: 2;
 }
 
+.popular-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .discover-popular {
   margin: 2rem 1.5rem;
   /* color: grey; */
   background-color: white;
-  width: 624px;
+  /* width: 624px; */
   height: 80%;
   /* background-color: #fbf1f1; */
   overflow: hidden;
@@ -114,11 +120,12 @@
   align-items: center;
   width: 60%;
   background-color: #fbf1f1;
-  clip-path: polygon(7% 5%, 97% 3%, 95% 99%, 6% 96%);
+  clip-path: polygon(4% 5%, 97% 3%, 97% 99%, 4% 96%);
 }
 
 .discover-search-by-cuisine-wrapper {
   width: 40%;
+  clip-path: polygon(7% 5%, 97% 3%, 95% 99%, 6% 96%);
 }
 
 .discover-popular-vegetarian h2 {
@@ -127,6 +134,7 @@
 }
 
 .popular-item {
+  width: 50%;
   transition: 0.3s ease-out;
   position: relative;
 }
@@ -134,11 +142,13 @@
 .popular-title {
   position: absolute;
   cursor: pointer;
+  width: auto;
   border-radius: 2px;
   bottom: 1.5rem;
   z-index: 1;
   left: 1.5rem;
   padding: 0.5rem;
+  margin: 0 1rem 0 0;
   background: #fff;
   opacity: 0.9;
   border-radius: 3px;
@@ -195,7 +205,7 @@
 
 .discover-section-2 {
   margin: 2rem 0 0 0;
-  height: 50vh;
+
   background-color: #fbf1f1;
   display: flex;
   align-items: center;
@@ -204,9 +214,10 @@
 
 .discover-popular-vegan,
 .discover-popular-pescetarian {
-  margin: 0 1rem;
+  margin: 2rem 1rem;
   background-color: white;
-  width: 624px;
+  /* width: 624px; */
+  width: 50%;
   display: flex;
   flex-direction: column;
 }
@@ -216,4 +227,61 @@
   align-self: center;
   font-size: 15px;
   margin: 1rem 0;
+}
+
+@media only screen and (max-width: 1024px) {
+  .discover-section-1 {
+    background-color: #fbf1f1;
+  }
+
+  .discover-search-by-cuisine-wrapper,
+  .discover-popular-vegetarian-wrapper {
+    clip-path: none;
+    background: none;
+  }
+
+  .discover-search-by-cuisine {
+    margin: 2rem 1rem 2rem 0;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .discover-container {
+    background-color: #fbf1f1;
+  }
+  .discover-header {
+    padding: 0.5rem;
+  }
+
+  .discover-section-1,
+  .discover-section-2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popular-item {
+    width: 100%;
+  }
+
+  .discover-search-by-cuisine-wrapper {
+    width: 100%;
+    order: 1;
+    background-color: #fbf1f1;
+  }
+
+  .discover-search-by-cuisine {
+    background-color: #fbf1f1;
+    margin: 0;
+  }
+
+  .discover-popular-vegetarian-wrapper {
+    width: 100%;
+    order: 0;
+  }
+
+  .discover-popular-vegan-wrapper,
+  .discover-popular-pescetarian-wrapper {
+    width: 100%;
+  }
 }

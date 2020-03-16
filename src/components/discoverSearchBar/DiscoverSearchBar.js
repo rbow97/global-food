@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
+import "../discover/Discover.css";
 
 const DiscoverSearchBar = props => {
   const [search, setSearch] = useState("");

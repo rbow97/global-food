@@ -34,6 +34,7 @@ const RecipeCard = props => {
     </button>
   );
 
+  console.log(props.recipe);
   if (props.favourites) {
     props.favourites.forEach(favourite => {
       const value = favourite.id;

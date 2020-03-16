@@ -95,3 +95,40 @@
   order: 0;
   border-radius: 0.5rem;
 }
+
+@media only screen and (max-width: 414px) {
+  .result-card {
+    display: grid;
+    grid-template-areas: "image title" "image info" "favourite .";
+    grid-gap: 0.5rem;
+    width: 100%;
+  }
+
+  .result-card-text {
+    width: auto;
+    margin: 0;
+  }
+
+  .result-card-title {
+    grid-area: title;
+    font-size: 10px;
+  }
+
+  .result-card-info {
+    grid-area: info;
+  }
+
+  .result-card-favourite-saved,
+  .result-card-favourite-unsaved {
+    grid-area: favourite;
+    align-self: start;
+    justify-self: start;
+  }
+
+  .result-card-image {
+    grid-area: image;
+    justify-content: flex-start;
+    width: 100px;
+    height: auto;
+  }
+}

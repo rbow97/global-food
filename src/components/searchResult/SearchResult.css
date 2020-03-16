@@ -59,3 +59,27 @@
   color: #ff6343;
   margin: 0 0 1.5rem 0;
 }
+
+@media only screen and (max-width: 414px) {
+  .results-container {
+    margin: 0;
+    padding: 1rem;
+  }
+
+  .results-cards {
+    width: 100%;
+    margin: 0;
+  }
+
+  .results-for {
+    padding: 0;
+    margin: 1rem 0;
+    width: 90%;
+    align-self: flex-start;
+    font-size: 15px;
+  }
+
+  .results-favourites-wrapper {
+    display: none;
+  }
+}

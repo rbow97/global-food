@@ -99,3 +99,9 @@
   margin: 0 0 1rem 0;
   color: lightgrey;
 }
+
+@media only screen and (max-width: 414px) {
+  .recipe-page-method-ingredients {
+    padding: 0.5rem;
+  }
+}
