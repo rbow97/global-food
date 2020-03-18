@@ -97,10 +97,10 @@ const DiscoverCarousel = props => {
 
   //carousel
   const goLeft = () => {
-    x === 0 ? setX(-200 * (props.popularVegetarian.length - 1)) : setX(x + 200);
+    x === 0 ? setX(-100 * props.popularVegetarian.length) : setX(x + 200);
   };
   const goRight = () => {
-    x === -200 * (props.popularVegetarian.length - 1) ? setX(0) : setX(x - 200);
+    x === -100 * props.popularVegetarian.length ? setX(0) : setX(x - 200);
   };
 
   return (

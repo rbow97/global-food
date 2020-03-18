@@ -71,7 +71,7 @@ export const fetchSearch = search => {
     dispatch(searching(true));
     dispatch(dispatchQuery(search));
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/search?query=${search}&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/search?query=${search}&number=5&apiKey=${APP_KEYrose}`
     );
     // dispatch({
     //   type: FETCH_SEARCH,
@@ -88,7 +88,7 @@ export const fetchSearchByIngredients = search => {
     dispatch(searching(true));
     dispatch(dispatchQuery(search));
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${search}&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${search}&number=5&apiKey=${APP_KEYrose}`
     );
     dispatch(searching(false));
     dispatch(dispatchSearchResultsDiscover(response));
@@ -125,7 +125,7 @@ export const fetchSearchCuisine = search => {
     dispatch(searching(true));
     dispatch(dispatchQuery(search));
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?cuisine=${search}&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/complexSearch?cuisine=${search}&number=5&apiKey=${APP_KEYrose}`
     );
     dispatch(dispatchSearchResultsCuisine(response));
     dispatch(searching(false));
