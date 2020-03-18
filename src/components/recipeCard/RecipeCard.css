@@ -111,7 +111,7 @@
 
   .result-card-title {
     grid-area: title;
-    font-size: 10px;
+    font-size: 15px;
   }
 
   .result-card-info {
@@ -128,7 +128,7 @@
   .result-card-image {
     grid-area: image;
     justify-content: flex-start;
-    width: 100px;
+    width: 150px;
     height: auto;
   }
 }

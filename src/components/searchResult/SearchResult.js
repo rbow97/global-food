@@ -2,17 +2,17 @@ import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import RecipeCard from "../recipeCard/RecipeCard";
 import FavouritesCard from "../favouritesCard/FavouritesCard";
-import Landing from "../landing/Landing";
 import Egg from "../icons/egg/Egg";
 import { useParams } from "react-router-dom";
 import "./SearchResult.css";
-import * as SearchActions from "../../actions/SearchActions";
+import * as SearchActions from "../../store/actions/SearchActions";
 
 const SearchResult = props => {
   let { query, type } = useParams();
 
   useEffect(() => {
     getResults();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   console.log(type);

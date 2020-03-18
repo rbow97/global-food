@@ -13,9 +13,10 @@
 }
 
 .favourites-container-title {
-  font-family: "shrikhand", sans-serif;
+  /* font-family: "shrikhand", sans-serif; */
   text-align: center;
-  color: #c4c4c4;
+  /* color: #c4c4c4; */
+  font-weight: bold;
   font-size: 25px;
   letter-spacing: 1px;
   margin: 0 1rem 2.5rem 1rem;
@@ -34,6 +35,7 @@
   width: 130px;
   height: 130px;
   margin: 0 0.5rem 0 0;
+  border-radius: 5px;
 }
 
 .favourite-card-text {
@@ -82,4 +84,80 @@
 
 .clear-button-wrapper:focus {
   outline: none;
+}
+
+@media only screen and (max-width: 414px) {
+  .favourites-container {
+    margin: 0;
+    padding: 0;
+  }
+  .favourites-container-title {
+    margin: 1rem 0;
+  }
+
+  .favourite-cards-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .favourite-card {
+    margin: 1rem;
+    padding: 1rem 0 1rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .favourite-card-text {
+    margin: 0 0.2rem;
+    font-size: 10px;
+  }
+
+  .favourite-card-title {
+    font-size: 11px;
+  }
+
+  .favourite-card-image {
+    width: 150px;
+    height: auto;
+  }
+
+  .clear-button-wrapper {
+    margin-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 768px) {
+  .favourite-cards-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .favourite-card {
+    margin: 1rem;
+    padding: 1rem 0 1rem 1rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .favourite-card-text {
+    margin: 0 0.2rem;
+    font-size: 10px;
+  }
+
+  .favourite-card-title {
+    font-size: 11px;
+  }
+
+  .favourite-card-image {
+    width: 150px;
+    height: auto;
+  }
+
+  .clear-button-wrapper {
+    margin-right: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .favourite-card-text {
+    margin-left: 1rem;
+  }
 }

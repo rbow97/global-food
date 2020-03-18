@@ -16,6 +16,7 @@ const RecipePageInfo = ({ info }) => {
 
   useEffect(() => {
     getLocalStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getLocalStorage = () => {

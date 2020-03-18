@@ -17,6 +17,11 @@
   align-items: center;
 }
 
+.nav-left a {
+  text-decoration: none;
+  color: #ff6343;
+}
+
 .nav-logo {
   display: flex;
   align-items: center;
@@ -97,5 +102,15 @@
 
   .nav-links li:nth-child(2) {
     padding: 0;
+  }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 768px) {
+  .nav {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .nav-title {
+    display: none;
   }
 }

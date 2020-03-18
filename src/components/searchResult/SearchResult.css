@@ -83,3 +83,13 @@
     display: none;
   }
 }
+
+@media only screen and (min-width: 414px) and (max-width: 768px) {
+  .results-favourites-wrapper {
+    display: none;
+  }
+  .results-cards {
+    width: 100%;
+    margin: 0;
+  }
+}

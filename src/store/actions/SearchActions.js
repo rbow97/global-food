@@ -10,7 +10,7 @@ import {
 } from "./types";
 
 const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
+// const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
 
 const searching = status => {
   return {
@@ -98,7 +98,7 @@ export const fetchSearchByIngredients = search => {
 export const fetchSearchVegetarian = () => {
   return async dispatch => {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?diet=vegetarian&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/complexSearch?diet=vegetarian&number=2&apiKey=${APP_KEYrose}`
     );
     dispatch(setVegetarian(response));
   };
@@ -106,7 +106,7 @@ export const fetchSearchVegetarian = () => {
 export const fetchSearchVegan = () => {
   return async dispatch => {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?diet=vegan&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/complexSearch?diet=vegan&number=2&apiKey=${APP_KEYrose}`
     );
     dispatch(setVegan(response));
   };
@@ -114,7 +114,7 @@ export const fetchSearchVegan = () => {
 export const fetchSearchPescetarian = () => {
   return async dispatch => {
     const response = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?diet=pescetarian&number=1&apiKey=${APP_KEYrose}`
+      `https://api.spoonacular.com/recipes/complexSearch?diet=pescetarian&number=2&apiKey=${APP_KEYrose}`
     );
     dispatch(setPescetarian(response));
   };

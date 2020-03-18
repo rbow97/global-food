@@ -2,7 +2,7 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import * as FavouriteActions from "../../actions/FavouriteActions";
+import * as FavouriteActions from "../../store/actions/FavouriteActions";
 
 import SearchResult from "../searchResult/SearchResult";
 import Discover from "../discover/Discover";
@@ -10,6 +10,7 @@ import Favourites from "../favourites/Favourites";
 import Landing from "../landing/Landing";
 import RecipePage from "../recipePage/RecipePage";
 import Nav from "../nav/Nav";
+import About from "../about/About";
 
 const App = props => {
   const setStateFromLocalStorage = () => {
@@ -21,6 +22,7 @@ const App = props => {
 
   useEffect(() => {
     setStateFromLocalStorage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -32,6 +34,7 @@ const App = props => {
           <Route path="/searchresults/:query/:type" component={SearchResult} />
           <Route path="/discover" component={Discover} />
           <Route path="/favourites" component={Favourites} />
+          <Route path="/about" component={About} />
           <Route path="/recipes/:id" component={RecipePage} />
         </Switch>
       </div>

@@ -41,7 +41,7 @@
   grid-row: 4 / 5;
   font-size: 11px;
   padding: 0.5rem;
-  justify-self: start;
+  justify-self: flex-start;
   align-self: center;
   display: flex;
   align-items: center;
@@ -66,7 +66,7 @@
   grid-row: 4 / 5;
   font-size: 11px;
   padding: 0.5rem;
-  justify-self: start;
+  justify-self: flex-start;
   align-self: center;
   display: flex;
   align-items: center;
@@ -122,7 +122,7 @@
 .nutrition-elements {
   display: flex;
   flex-wrap: wrap;
-  justify-content: start;
+  justify-content: flex-start;
   font-size: 10px;
   margin: 0.5rem 0 0 0;
 }
@@ -316,7 +316,7 @@
 
   .recipe-page-servings {
     grid-area: servings;
-    justify-self: start;
+    justify-self: flex-start;
   }
 
   .recipe-page-time {

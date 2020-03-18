@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import TruncateString from "../../helpers/TruncateString";
+
 import "./Discover.css";
 import DiscoverSearchBar from "../discoverSearchBar/DiscoverSearchBar";
 import DiscoverCarousel from "../discoverCarousel/DiscoverCarousel";
-import * as SearchActions from "../../actions/SearchActions";
+import * as SearchActions from "../../store/actions/SearchActions";
 
 const Discover = props => {
   const placeholder = "pasta, brocolli";
   const discover = "discover";
   const cuisine = "cuisine";
-  let type;
 
   useEffect(() => {
     props.callVegetarian();
     props.callVegan();
     props.callPescetarian();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import TruncateString from "../../helpers/TruncateString";
-import * as FavouriteActions from "../../actions/FavouriteActions";
+import * as FavouriteActions from "../../store/actions/FavouriteActions";
 
 import "./Favourites.css";
 import Plate from "../icons/plate/Plate";

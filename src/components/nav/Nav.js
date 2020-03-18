@@ -21,19 +21,19 @@ const Nav = props => {
 
   if (links) {
     backdrop = <Backdrop click={() => toggleClickHandler()} />;
-    toggleNav = <ToggleNav />;
+    toggleNav = <ToggleNav click={() => toggleClickHandler()} />;
   }
 
   return (
     <Fragment>
       <nav className="nav">
         <div className="nav-left">
-          <div className="nav-logo">
-            <Logo />
-            <h1 className="nav-title">
-              <Link to={`/`}>Global Food</Link>
-            </h1>
-          </div>
+          <Link to={`/`}>
+            <div className="nav-logo">
+              <Logo />
+              <h1 className="nav-title">Global Food</h1>
+            </div>
+          </Link>
           {props.location.pathname === "/" ? null : (
             <SearchBar placeholder={placeholder} type={type} />
           )}

@@ -1,27 +1,23 @@
 import React from "react";
 import "./RecipeCard.css";
 import "../icons/emptyStar/EmptyStar.css";
-import checkDuplicateFavourite from "../../helpers/CheckDuplicateFavourite";
+
 import Star from "../star/Star";
 import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Clock from "../icons/clock/Clock";
 import Plate from "../icons/plate/Plate";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import * as favouriteActions from "../../actions/FavouriteActions";
+import * as favouriteActions from "../../store/actions/FavouriteActions";
 
 const RecipeCard = props => {
   // Adding functionality to 'favourite' button
   const saveRecipeAsFavourite = recipe => {
-    const check = checkDuplicateFavourite(recipe);
-
-    if (check) {
-      localStorage.setItem(
-        "favourites",
-        JSON.stringify([...props.favourites, recipe])
-      );
-      props.saveFavourite(recipe);
-    }
+    localStorage.setItem(
+      "favourites",
+      JSON.stringify([...props.favourites, recipe])
+    );
+    props.saveFavourite(recipe);
   };
 
   let favouriteButton = (
@@ -39,7 +35,7 @@ const RecipeCard = props => {
     props.favourites.forEach(favourite => {
       const value = favourite.id;
       const favouriteString = value.toString();
-
+      //  eslint-disable-next-line eqeqeq
       if (favouriteString == props.recipe.id) {
         return (favouriteButton = (
           <button

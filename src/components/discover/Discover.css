@@ -247,11 +247,17 @@
 }
 
 @media only screen and (max-width: 414px) {
+  .discover-search-by-ingredients-subtitle,
+  .discover-subtitle,
+  .discover-search-by-cuisine-subtitle {
+    text-align: center;
+  }
   .discover-container {
     background-color: #fbf1f1;
   }
   .discover-header {
     padding: 0.5rem;
+    margin: 1.5rem 0;
   }
 
   .discover-section-1,
@@ -262,6 +268,20 @@
 
   .popular-item {
     width: 100%;
+  }
+
+  #prevButton {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+  #nextButton {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .popular-title {
+    font-size: 8px;
+    bottom: 0.5rem;
   }
 
   .discover-search-by-cuisine-wrapper {
@@ -280,8 +300,21 @@
     order: 0;
   }
 
+  .discover-popular-vegan,
+  .discover-popular-pescetarian {
+    width: auto;
+    margin: 1.5rem;
+  }
+
   .discover-popular-vegan-wrapper,
   .discover-popular-pescetarian-wrapper {
     width: 100%;
+  }
+}
+
+@media only screen and (min-width: 414px) and (max-width: 1024px) {
+  .discover-section-2 {
+    flex-grow: 1;
+    align-items: flex-start;
   }
 }

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import * as FavouriteActions from "../../actions/FavouriteActions";
+import * as FavouriteActions from "../../store/actions/FavouriteActions";
 import axios from "axios";
 import "./RecipePage.css";
 import RecipePageInfo from "../recipePageInfo/RecipePageInfo";
 import TruncateString from "../../helpers/TruncateString";
-import CheckDuplicateFavourite from "../../helpers/CheckDuplicateFavourite";
 
 import EmptyStar from "../icons/emptyStar/EmptyStar";
 import Star from "../star/Star";
@@ -17,7 +16,7 @@ import Vegetable from "../icons/vegetable/Vegetable";
 
 const RecipePage = props => {
   const APP_KEYrose = "3bb40b484ae042bdbb10a1b038f5550a";
-  const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
+  // const APP_KEYjoe = "0aabbc9ce7f64cafb2b536729bc375b1";
   const [info, setInfo] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -34,6 +33,7 @@ const RecipePage = props => {
 
   useEffect(() => {
     getInfoFunction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getInfoFunction = async () => {
@@ -68,6 +68,7 @@ const RecipePage = props => {
     const nutrientsArr = info.data.nutrition.nutrients;
 
     if (nutrientsArr) {
+      // eslint-disable-next-line array-callback-return
       renderNutrients = nutrientsArr.map(el => {
         if (
           el.title === "Calories" ||
@@ -137,6 +138,7 @@ const RecipePage = props => {
         const value = favourite.id;
 
         const favouriteString = value.toString();
+        // eslint-disable-next-line eqeqeq
         if (favouriteString == props.match.params.id) {
           console.log(info.data);
           return (favouriteButton = (

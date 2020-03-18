@@ -21,7 +21,7 @@ const DiscoverCarousel = props => {
         >
           <img
             key={popVegetarian.id}
-            className={`popular-image-${index}`}
+            className={`popular-image`}
             src={popVegetarian.image}
             alt={popVegetarian.title}
           ></img>
@@ -49,7 +49,7 @@ const DiscoverCarousel = props => {
         >
           <img
             key={popVegan.id}
-            className={`popular-image-${index}`}
+            className={`popular-image`}
             src={popVegan.image}
             alt={popVegan.title}
           ></img>
@@ -77,7 +77,7 @@ const DiscoverCarousel = props => {
         >
           <img
             key={popPescetarian.id}
-            className={`popular-image-${index}`}
+            className={`popular-image`}
             src={popPescetarian.image}
             alt={popPescetarian.title}
           ></img>
@@ -97,10 +97,10 @@ const DiscoverCarousel = props => {
 
   //carousel
   const goLeft = () => {
-    x === 0 ? setX(-100 * (props.popularVegetarian.length - 1)) : setX(x + 200);
+    x === 0 ? setX(-200 * (props.popularVegetarian.length - 1)) : setX(x + 200);
   };
   const goRight = () => {
-    x === -100 * (props.popularVegetarian.length - 1) ? setX(0) : setX(x - 200);
+    x === -200 * (props.popularVegetarian.length - 1) ? setX(0) : setX(x - 200);
   };
 
   return (
