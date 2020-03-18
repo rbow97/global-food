@@ -86,7 +86,7 @@
   outline: none;
 }
 
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 550px) {
   .favourites-container {
     margin: 0;
     padding: 0;
@@ -126,7 +126,7 @@
   }
 }
 
-@media only screen and (min-width: 414px) and (max-width: 768px) {
+@media only screen and (min-width: 550px) and (max-width: 768px) {
   .favourite-cards-container {
     display: flex;
     flex-direction: column;

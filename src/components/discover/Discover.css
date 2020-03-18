@@ -3,7 +3,7 @@
   flex-grow: 1;
   /* padding: 0 3rem; */
   background-color: white;
-  border-radius: 0.5rem 0.5rem 0 0;
+
   font-family: "roboto mono", sans-serif;
   font-size: 12px;
   font-weight: lighter;
@@ -246,7 +246,7 @@
   }
 }
 
-@media only screen and (max-width: 414px) {
+@media only screen and (max-width: 1024px) {
   .discover-search-by-ingredients-subtitle,
   .discover-subtitle,
   .discover-search-by-cuisine-subtitle {
@@ -264,6 +264,7 @@
   .discover-section-2 {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .popular-item {
@@ -285,9 +286,21 @@
   }
 
   .discover-search-by-cuisine-wrapper {
-    width: 100%;
+    /* width: 100%; */
+    width: 60%;
     order: 1;
     background-color: #fbf1f1;
+  }
+
+  .discover-search-by-cuisine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .discover-search-by-cuisine-subtitle {
+    order: 5;
+    width: 150%;
   }
 
   .discover-search-by-cuisine {
@@ -315,6 +328,6 @@
 @media only screen and (min-width: 414px) and (max-width: 1024px) {
   .discover-section-2 {
     flex-grow: 1;
-    align-items: flex-start;
+    /* align-items: flex-start; */
   }
 }
